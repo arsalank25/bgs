@@ -1,16 +1,26 @@
-CREATE TABLE User (
-userID 		INTEGER()		NOT NULL,
+DROP TABLE Shipment ;
+DROP TABLE PST ;
+DROP TABLE  Payment ;
+DROP TABLE Review ;
+DROP TABLE  Cart ;
+DROP TABLE WishList ;
+DROP TABLE OrderContains ;
+DROP TABLE  Product ;
+DROP TABLE Customer ;
+
+
+CREATE TABLE Customer (
+CustomerID 	int				NOT NULL PRIMARY KEY,
 password 	VARCHAR(20) 	NOT NULL,
-firstName 	VARCHAR(30) 	NOT NULL,
-lastName 	VARCHAR(30) 	NOT NULL,
+firstName 	VARCHAR(50) 	NOT NULL,
+lastName 	VARCHAR(50) 	NOT NULL,
 email 		VARCHAR(30) 	NOT NULL,
-houseNo 	VARCHAR(20)
-street		VARCHAR(20)
-city 		VARCHAR(20)
-province 	VARCHAR(20)
-postalCode 	VARCHAR(10)
-accessLevel 	SMALLINT 		NOT NULL,
-PRIMARY 	KEY (userID)
+houseNo 	VARCHAR(20),
+street		VARCHAR(20),
+city 		VARCHAR(20),
+province 	VARCHAR(20),
+postalCode 	VARCHAR(10),
+accessLevel SMALLINT 	 	NOT NULL
 );
 
 CREATE TABLE Shipment(
@@ -20,14 +30,14 @@ estimated		DATETIME,
 noteToService		VARCHAR(140)
 noteOnPackage	VARCHAR(140)
 oID	 		INTEGER()		NOT NULL,
-userID 			INTEGER()		NOT NULL,
+CustomerID 			INTEGER()		NOT NULL,
 PRIMARY KEY (shipmentNo )
-FOREIGN KEY (userID,oID) REFERENCES Order(userID,oID)
+FOREIGN KEY (CustomerID,oID) REFERENCES Cart(CustomerID,oID)
 ON DELETE CASCADE ON UPDATE CASCADE);
 
 CREATE TABLE PST(
 province		VARCHAR(2) 	NOT NULL,
-tax			INTEGER(),
+PST			INTEGER(),
 PRIMARY KEY (province)
 );
 
@@ -37,7 +47,7 @@ color		VARCHAR(20),
 material	VARCHAR(20),
 brand		VARCHAR(20),
 size		VARCHAR(20),
-price		DECIMLE(8,2),
+price		DEC(8,2),
 weight		INTEGER()
 style		VARCHAR(20),
 image		VARCHAR(20),
@@ -46,7 +56,7 @@ PRIMARY KEY (pID)
 );
 
 CREATE TABLE Payment(
-userID 			INTEGER()		NOT NULL,
+CustomerID 		INTEGER()	NOT NULL,
 paymentName 	VARCHAR(20)	NOT NULL,
 firstName		VARCHAR(20),
 last Name		VARCHAR(20),
@@ -55,63 +65,53 @@ city 			VARCHAR(20),
 province 		VARCHAR(20),
 postalCode 		VARCHAR(10),
 cardNo			INTEGER(),
-cardSin		INTEGER(),
+cardSin			INTEGER(),
 cardExpeiryDate	INTEGER(),
-PRIMARY KEY(userID , paymentName),
-FOREIGN KEY (userID) REFERENCES User(userID)
+PRIMARY KEY(CustomerID , paymentName),
+FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
 ON DELETE CASCADE ON UPDATE CASCADE);
 
-CREATE TABLE ORDER(
-userID		INTEGER()		NOT NULL,
-oID		INTEGER()		NOT NULL,
-province	VARCHAR(20),
-totalAmount	DECIMLE(8,2),
-GST		INTEGER(),
-PST		INTEGER(),
-PRIMARY KEY(userID ,oID),
+CREATE TABLE Cart(
+CustomerID		INTEGER()		NOT NULL,
+oID				INTEGER()		NOT NULL,
+province		VARCHAR(20),
+totalAmount		DEC(8,2),
+GST				INTEGER(),
+PRIMARY KEY(CustomerID ,oID),
 FOREIGN KEY (province) REFERENCES PST(province)
 ON DELETE CASCADE ON UPDATE CASCADE);
 
 CREATE TABLE Review(
 pID 		INTEGER() 	NOT NULL,
-UserID		INTEGER()	NOT NULL,
+CustomerID	INTEGER()	NOT NULL,
 Text		VARCHAR(140), 
 Stars		INTEGER(5), 
 dateTime	DATETIME,
-PRIMARY KEY(userID , pID),
-FOREIGN KEY (UserID) REFERENCES User(userID)
+PRIMARY KEY(CustomerID , pID),
+FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
 ON DELETE CASCADE ON UPDATE CASCADE
 FOREIGN KEY (pID) REFERENCES Product(pID)
 ON DELETE CASCADE ON UPDATE CASCADE);
 
 CREATE TABLE WishList(
-pID 		INTEGER() 	NOT NULL,
-UserID		INTEGER()	NOT NULL,
-PRIMARY KEY(userID ),
-FOREIGN KEY (UserID) REFERENCES User(userID)
+pID 			INTEGER() 	NOT NULL,
+CustomerID		INTEGER()	NOT NULL,
+PRIMARY KEY(CustomerID ),
+FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
 ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE OrderContains(
-oID		INTEGER()		NOT NULL, # this is the Order ID 
+oID			INTEGER()		NOT NULL, 
 pID 		INTEGER() 		NOT NULL,
 quantity	INTEGER()		NOT NULL,
 PRIMARY KEY(oID,pID),
-FOREIGN KEY (oID) REFERENCES Order(oID)
+FOREIGN KEY (oID) REFERENCES Cart(oID)
 ON DELETE CASCADE ON UPDATE CASCADE
 FOREIGN KEY (pID) REFERENCES Product(pID)
 ON DELETE CASCADE ON UPDATE CASCADE);
 
 
-CREATE TABLE UserOrder(
-oID		INTEGER()		NOT NULL, # this is the Order ID 
-UserID		INTEGER()		NOT NULL,
-PRIMARY KEY (oID,userID)
-FOREIGN KEY (UserID) REFERENCES User(userID)
-ON DELETE CASCADE ON UPDATE CASCADE
-FOREIGN KEY (oID) REFERENCES Order(oID)
-ON DELETE CASCADE ON UPDATE CASCADE
-);
 
 
 insert Product Values(1,'red','wool','Roots','xl',28.0,'1kg','Turtle Neck','product1.jpg',3);

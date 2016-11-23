@@ -24,39 +24,39 @@ accessLevel SMALLINT 	 	NOT NULL
 );
 
 CREATE TABLE Shipment(
-shipmentNo  		INTEGER()		 NOT NULL,
-shipDate  		DATETIME,
-estimated		DATETIME,
-noteToService		VARCHAR(140)
+shipmentNo  		INT()		 NOT NULL,
+shipDate  		DATE,
+estimated		DATE,
+noteToService	VARCHAR(140)
 noteOnPackage	VARCHAR(140)
-oID	 		INTEGER()		NOT NULL,
-CustomerID 			INTEGER()		NOT NULL,
+oID	 			INT()		NOT NULL,
+CustomerID 		INT()		NOT NULL,
 PRIMARY KEY (shipmentNo )
 FOREIGN KEY (CustomerID,oID) REFERENCES Cart(CustomerID,oID)
-ON DELETE CASCADE ON UPDATE CASCADE);
+);
 
 CREATE TABLE PST(
 province		VARCHAR(2) 	NOT NULL,
-PST			INTEGER(),
+PST			INT(),
 PRIMARY KEY (province)
 );
 
 CREATE TABLE Product (
-pID		INTEGER() 	NOT NULL,
+pID		INT() 	NOT NULL,
 color		VARCHAR(20),
 material	VARCHAR(20),
 brand		VARCHAR(20),
 size		VARCHAR(20),
 price		DEC(8,2),
-weight		INTEGER()
+weight		INT()
 style		VARCHAR(20),
 image		VARCHAR(20),
-inventory 	INTEGER(),
+inventory 	INT(),
 PRIMARY KEY (pID)
 );
 
 CREATE TABLE Payment(
-CustomerID 		INTEGER()	NOT NULL,
+CustomerID 		INT()	NOT NULL,
 paymentName 	VARCHAR(20)	NOT NULL,
 firstName		VARCHAR(20),
 last Name		VARCHAR(20),
@@ -64,52 +64,49 @@ street			VARCHAR(20),
 city 			VARCHAR(20),
 province 		VARCHAR(20),
 postalCode 		VARCHAR(10),
-cardNo			INTEGER(),
-cardSin			INTEGER(),
-cardExpeiryDate	INTEGER(),
+cardNo			INT(),
+cardSin			INT(),
+cardExpeiryDate	INT(),
 PRIMARY KEY(CustomerID , paymentName),
 FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
-ON DELETE CASCADE ON UPDATE CASCADE);
+);
 
 CREATE TABLE Cart(
-CustomerID		INTEGER()		NOT NULL,
-oID				INTEGER()		NOT NULL,
+CustomerID		INT()		NOT NULL,
+oID				INT()		NOT NULL,
 province		VARCHAR(20),
 totalAmount		DEC(8,2),
-GST				INTEGER(),
+GST				INT(),
 PRIMARY KEY(CustomerID ,oID),
 FOREIGN KEY (province) REFERENCES PST(province)
-ON DELETE CASCADE ON UPDATE CASCADE);
+);
 
 CREATE TABLE Review(
-pID 		INTEGER() 	NOT NULL,
-CustomerID	INTEGER()	NOT NULL,
+pID 		INT() 	NOT NULL,
+CustomerID	INT()	NOT NULL,
 Text		VARCHAR(140), 
-Stars		INTEGER(5), 
+Stars		INT(5), 
 dateTime	DATETIME,
 PRIMARY KEY(CustomerID , pID),
 FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
-ON DELETE CASCADE ON UPDATE CASCADE
 FOREIGN KEY (pID) REFERENCES Product(pID)
-ON DELETE CASCADE ON UPDATE CASCADE);
+);
 
 CREATE TABLE WishList(
-pID 			INTEGER() 	NOT NULL,
-CustomerID		INTEGER()	NOT NULL,
+pID 			INT() 	NOT NULL,
+CustomerID		INT()	NOT NULL,
 PRIMARY KEY(CustomerID ),
 FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
-ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE OrderContains(
-oID			INTEGER()		NOT NULL, 
-pID 		INTEGER() 		NOT NULL,
-quantity	INTEGER()		NOT NULL,
+oID			INT()		NOT NULL, 
+pID 		INT() 		NOT NULL,
+quantity	INT()		NOT NULL,
 PRIMARY KEY(oID,pID),
 FOREIGN KEY (oID) REFERENCES Cart(oID)
-ON DELETE CASCADE ON UPDATE CASCADE
 FOREIGN KEY (pID) REFERENCES Product(pID)
-ON DELETE CASCADE ON UPDATE CASCADE);
+);
 
 
 

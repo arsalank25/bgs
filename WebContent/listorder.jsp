@@ -10,9 +10,9 @@
 
 <h1>Order List</h1>
 <% Connection con = null;
-String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_tsiemens";
-String uid = "tsiemens";
-String pw = "26744145";
+String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_group11";
+String uid = "group11";
+String pw = "group11";
 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver"); 
 con = DriverManager.getConnection(url,uid,pw); %>
 

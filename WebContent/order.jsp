@@ -13,9 +13,9 @@
 <body>
 
 <% 
-String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_tsiemens";
-String uid = "tsiemens";
-String pw = "26744145";
+String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_group11";
+String uid = "group11";
+String pw = "group11";
 Connection con = null; 
 ResultSet res, res2,  keys, resCustName = null;
 String sql, sql2, insertProduct, update, insert, getCustName = "";

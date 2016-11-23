@@ -122,9 +122,9 @@ p {
 			<%
 				// Get product name to search for
 				String name = request.getParameter("productColour");
-				String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_tsiemens";
-				String uid = "tsiemens";
-				String pw = "26744145";
+				String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_group11";
+				String uid = "group11";
+				String pw = "group11";
 				Connection con = null;
 				double price = 0.0;
 				int productId = 0;

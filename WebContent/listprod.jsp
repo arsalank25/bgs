@@ -89,7 +89,8 @@ p {
 		<li><a href="shop.html">Home</a></li>
 		<li class="dropdown"><a href="listprod.jsp" class="dropbtn">Shop</a>
 			<div class="dropdown-content">
-				<a href="listprod.jsp">Link 1</a> <a href="#">Link 2</a> <a href="#">Link
+				<a href="TurtleNeck.jsp">Turtle Neck</a>
+				<a href="#">Link 2</a> <a href="#">Link
 					3</a>
 			</div></li>
 		<li><a href="#contact">Contact</a></li>

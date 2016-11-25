@@ -3,8 +3,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
 <%@ page import="javax.imageio.*"%>
 
-<%@ page import="java.awt.image.BufferedImage" %>
-<%@ page import= "java.io.File" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -90,8 +88,9 @@ p {
 		<li class="dropdown"><a href="listprod.jsp" class="dropbtn">Shop</a>
 			<div class="dropdown-content">
 				<a href="TurtleNeck.jsp">Turtle Neck</a>
-				<a href="#">Link 2</a> <a href="#">Link
-					3</a>
+				<a href="T-Shirt.jsp">T-Shirt</a>
+				
+				
 			</div></li>
 		<li><a href="#contact">Contact</a></li>
 		<li style="float: right"><input type="text" name="search"
@@ -130,50 +129,68 @@ p {
 				double price = 0.0;
 				int productId = 0;
 				String productColour, link, sql = "";
+				String productStyle, productSize = "";
 				PreparedStatement prep = null;
+				
 				try {
 					Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 					con = DriverManager.getConnection(url, uid, pw);
+					
 					if (name != null && !name.isEmpty()) { // search is not an empty search
-						sql = "SELECT price FROM Product WHERE color LIKE '%"+ name + "%'";
+						sql = "SELECT pID,color,price,style,size FROM Product WHERE style LIKE '%"+ name + "%'" +
+						"OR color LIKE '%"+ name + "%'" + "OR size LIKE '%"+ name + "%'";
+					
 						prep = con.prepareStatement(sql);
 					} else { // no search, so show all products
-						sql = "SELECT price FROM Product";
+						sql = "SELECT pID,color,size,style,price FROM Product";
 						prep = con.prepareStatement(sql);
 					}
 					ResultSet rst = prep.executeQuery();
-					BufferedImage img = null;
-
+					
+					String img = null;
+					int count=0;
+					
 					while (rst.next()) {
-						productId = rst.getInt("price");
-						/* img = ImageIO
-								.read(new File("product" + productId + ".jpg")); */
-						//productColour = rst.getString("color");
-						price = rst.getDouble("price");
-						//link = "addcart.jsp?id=" + productId + "&name="+ productColour + "&price=" + price;
-			%>
+						
+						if (count == 4) {
+							%><tr></tr>
+							<%
+								count = 0;
+										} else {
+											count++;
+						
+											productId = rst.getInt("pId");
+											img = "images/product" + productId + ".jpg";
+											
+											productColour = rst.getString("color");
+											price = rst.getDouble("price");
+											productStyle = rst.getString("style");
+											productSize = rst.getString("size");
+											
+											link = "addcart.jsp?id=" + productId + "&name="+ productStyle + "&price=" + price;
+							%>
 
-			<tr>
-				<div style="background-color: silver">
-					<tr>
-						<td><img src=img style="width: 150px; height: 100px;">
-							<h4>
-								<%
-									//out.print('\n' + productColour);
-								%>
-							</h4>
-							<p>
-								<%
-									NumberFormat currFormat = NumberFormat.getCurrencyInstance();
-											out.print(currFormat.format(price));
-								%>
-							<!--  <a href=<%//=link%>> Add to Cart </a></p> -->
-				</div>
-				</td>
-			</tr>
-			<%
-				}
-			%>
+							<th>
+							<td><img src=<%=img %> style="width: 150px; height: 100px;">
+								<p>
+								
+									<b><%out.print('\n' + productStyle);%></b><br>	
+									<% 	out.print("Available colour: " + productColour); %><br>
+									<% out.print("Available size: " + productSize);%><br>
+								
+									<%NumberFormat currFormat = NumberFormat.getCurrencyInstance();
+										out.print(currFormat.format(price));%>
+								</p>
+								<p>
+									<a href=<%=link%>> Add to Cart </a>
+								</p></td>
+							</th>
+
+							<%
+								}
+									}
+							%>
+
 		</table>
 		<%
 			} catch (SQLException ex) {

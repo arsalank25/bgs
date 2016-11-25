@@ -113,7 +113,7 @@ INSERT Product Values(5,'blue','wool','Roots','xl',28.0,1,'Turtle Neck','product
 INSERT Product Values(6,'red','wool','Roots','xl',28.0,1,'Turtle Neck','product6.jpg',3);
 INSERT Product Values(7,'red','wool','Roots','xl',28.0,1,'Turtle Neck','product7.jpg',3);
 INSERT Product Values(8,'pink','wool','Roots','xl',28.0,1,'Turtle Neck','product8.jpg',3);
-INSERT Product Values(9,'pink','wool','Roots','xl',28.0,1,'Turtle Neck','product9.jpg',3);
+INSERT Product Values(9,'pink','wool','Roots','xl',28.0,1,'Pjs','product9.jpg',3);
 INSERT Product Values(10,'grey','cotton','Roots','xl',14.0,1.5,'T-Shirt','product10.jpg',3);
 INSERT Product Values(11,'grey','wool','Roots','xl',28.0,1,'Turtle Neck','product11.jpg',3);
 INSERT Product Values(12,'yellow','wool','Roots','xl',28.0,1,'Turtle Neck','product12.jpg',3);

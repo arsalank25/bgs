@@ -88,8 +88,8 @@ p {
 		<li><a href="shop.html">Home</a></li>
 		<li class="dropdown"><a href="listprod.jsp" class="dropbtn">Shop</a>
 			<div class="dropdown-content">
-				<a href="listprod.jsp">Turtle Neck</a>
-				<a href="#">Link 2</a> <a href="#">Link
+				<a href="TurtleNeck.jsp">Turtle Neck</a>
+				<a href="T-Shirt.jsp">T-Shirt</a>
 				
 				
 					3</a>
@@ -117,7 +117,7 @@ p {
 
 		<!-- Products listed in a Table -->
 		<h1 style="font-family: Raleway;" align="center">
-			<span style="color: orange">C</span>urrent Favourites
+			<span style="color: orange">T</span>urtle Neck Sweaters
 		</h1>
 
 		<table style="width: 100%">
@@ -130,14 +130,14 @@ p {
 				Connection con = null;
 				double price = 0.0;
 				int productId = 0;
-				String productStyle = "";
+				String productStyle, productSize = "";
 				String productColour, link, sql = "";
 
 				PreparedStatement prep = null;
 				try {
 					Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 					con = DriverManager.getConnection(url, uid, pw);
-					sql = "SELECT pId,style,color,price FROM Product WHERE style = 'Turtle Neck'";
+					sql = "SELECT pId,style,color,price,size FROM Product WHERE style = 'Turtle Neck'";
 					prep = con.prepareStatement(sql);
 
 					ResultSet rst = prep.executeQuery();
@@ -155,27 +155,26 @@ p {
 							
 							productId = rst.getInt("pId");
 							img = "images/product" + productId + ".jpg";
+							
 							productColour = rst.getString("color");
 							price = rst.getDouble("price");
 							productStyle = rst.getString("style");
+							productSize = rst.getString("size");
+							
 							link = "addcart.jsp?id=" + productId + "&name="+ productStyle + "&price=" + price;
 			%>
 
 			<th>
 			<td><img src=<%=img %> style="width: 150px; height: 100px;">
-				<h4>
-					<%
-						out.print('\n' + productStyle + ":");
-									out.print('\n' + productColour);
-					%>
-				</h4>
-				<p>
-					<%
-						NumberFormat currFormat = NumberFormat
-											.getCurrencyInstance();
-									out.print(currFormat.format(price));
-					%>
-				</p>
+			<p>
+								
+									<b><%out.print('\n' + productStyle);%></b><br>	
+									<% 	out.print("Available colour: " + productColour); %><br>
+									<% out.print("Available size: " + productSize);%><br>
+								
+									<%NumberFormat currFormat = NumberFormat.getCurrencyInstance();
+										out.print(currFormat.format(price));%>
+								</p>
 				<p>
 					<a href=<%=link%>> Add to Cart </a>
 				</p></td>

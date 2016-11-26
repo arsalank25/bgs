@@ -10,14 +10,9 @@
 
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
 <%
-// Get the current list of products
-@SuppressWarnings({"unchecked"})
-HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
 
-if (productList == null)
-{	// No products currently in list.  Create a list.
-	productList = new HashMap<String, ArrayList<Object>>();
-}
+
+
 
 // Add new product selected
 // Get product information CustomerUserName
@@ -67,7 +62,7 @@ else if (!validator.isValid(email)){ // Determine if there are products in the s
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, customerUserName);
 				res = pstmt.executeQuery();
-				if (res.next()){
+				if (res.next()){// if there is next we will get user to make new username as it is present 
 					%>
 					<h2> out.println("The User name is not available. Go back to the previous page and try again."); </h2> 
 					<% 
@@ -79,16 +74,16 @@ else if (!validator.isValid(email)){ // Determine if there are products in the s
 				prep = con.prepareStatement(sql);
 				res = prep.executeQuery();
 				int customerID = res.getInt("customerID")+1; // this gets the max id and adds one to make new id for new cust
-				
+				insert = "INSERT INTO Customer(customerID,customerUserName,password,firstName,lastName,email,accessLevel) VALUES (?,?,?,?,?,?,0)";//by defult the access level will be zero 
+				prep2 = con.prepareStatement(insert);			
+				prep2.setInt(1, customerID);
+				prep2.setString(2, customerUserName);
+				prep2.setString(3, password);
+				prep2.setString(4, firstName);
+				prep2.setString(5, lastName);
+				prep2.setString(6, email);
 							
-				insert = "INSERT INTO Customer(customerID,customerUserName,password,firstName,lastName,email) VALUES (?)";	
-				prep.setInt(1, customerID);
-				prep.setString(2, customerUserName);
-				prep.setString(3, password);
-				prep.setString(4, firstName);
-				prep.setString(5, lastName);
-				prep.setString(6, email);
-				pstmt.executeUpdate();			
+			   prep2.executeUpdate();			
 							
 				
 		

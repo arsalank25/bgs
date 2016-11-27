@@ -10,8 +10,8 @@
 <title>Shop</title>
 </head>
 <body>
-<!-- Navigation menus -->
-<!-- class="active" is used to change the colour of the tab of which page the user is on -->
+	<!-- Navigation menus -->
+	<!-- class="active" is used to change the colour of the tab of which page the user is on -->
 	<ul>
 		<li style="float: right"><a href="login.jsp">Account</a></li>
 		<li style="float: right"><a href="#about">WishList</a></li>
@@ -22,8 +22,7 @@
 		<li><a href="shop.html">Home</a></li>
 		<li class="dropdown"><a href="listprod.jsp" class="dropbtn">Shop</a>
 			<div class="dropdown-content">
-				<a href="TurtleNeck.jsp">Turtle Neck</a>
-				<a href="T-Shirt.jsp">T-Shirt</a>				
+				<a href="TurtleNeck.jsp">Turtle Neck</a> <a href="T-Shirt.jsp">T-Shirt</a>
 			</div></li>
 		<li><a href="#contact">Contact</a></li>
 		<li style="float: right"><input type="text" name="search"
@@ -31,18 +30,18 @@
 	</ul>
 	<br>
 
-<!-- Search Menu -->
+	<!-- Search Menu -->
 	<h4 style="font-family: Raleway;">
 		<i>Shop by category</i>
 		</h3>
 		<form method="get" action="listprod.jsp">
 			<input type="text" name="productName" size="50"> <input
 				type="submit" value="Submit"><input type="reset"
-				value="Reset"> 
+				value="Reset">
 		</form>
 		<br>
 
-<!-- Products listed in a Table -->
+		<!-- Products listed in a Table -->
 		<h1 style="font-family: Raleway;" align="center">
 			<span style="color: orange">C</span>urrent Favourites
 		</h1>
@@ -59,12 +58,10 @@
 					int productId = 0;
 					String productColour, link = "";
 					String productStyle, productSize = "";
-					String img = null;
-					
-					
+					String img = null;					
 										
 					//Used for HTML formatting
-					int ITEMS_PER_ROW = 4;
+					int ITEMS_PER_ROW = 5;
 					int count = 0;
 							
 					//Choose which query we are performing
@@ -79,7 +76,6 @@
 						sql = "SELECT productId, productName, price FROM Product WHERE productName LIKE ?";
 						name = '%' + name + '%';
 					}
-
 					
 					//Connection Information		
 					String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_group11";
@@ -113,26 +109,20 @@
 								price = rst.getDouble("price");
 								productStyle = rst.getString("style");
 								productSize = rst.getString("size");
-
-								link = "addcart.jsp?id=" + productId + "&name=" + productStyle + "&price=" + price;
 								
-								out.print("<th><td><img src="+img+" style=\"width: 150px; height: 100px;\"><p><b>"+
-								productStyle+"</b><br>");
-				
-										 	out.print("Available colour: " + productColour); %><br>
-										<% out.print("Available size: " + productSize);%><br>
-									
-										<%NumberFormat.getCurrencyInstance();
-											out.print(currFormat.format(price));%>
-									</p>
-									<p>
-										<a href=<%=link%>> Add to Cart </a>
-									</p></td>
-								</th>
-
-								<%
-									}
-										}
+								out.print("<th><td><img src="+img+" style=\"width: 150px; height: 100px;\">");
+								
+								out.print("<p><b>"+productStyle+"</b>");				
+								out.print("<br>Available colour: " + productColour);
+								out.print("<br>Available size: " + productSize);
+								
+								NumberFormat.getCurrencyInstance();
+								out.print("<br>"+currFormat.format(price));
+								out.print("</p><p>");
+								out.print("<a href=\"addcart.jsp?id=" + productId + "&name=" + productStyle);						
+								out.print("&price=" + price+ "\"> Add to Cart </a></p></td></th>");								
+							}
+						}
 						out.println("</table>");
 					} 
 					catch (SQLException ex) 
@@ -152,6 +142,6 @@
 						}
 					}
 				%>
-	
+		
 </body>
 </html>

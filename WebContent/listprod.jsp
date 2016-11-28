@@ -7,51 +7,49 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" href="images/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Abel" />
 <title>Shop</title>
 </head>
 <body>
 	<!-- Navigation menus -->
 	<!-- class="active" is used to change the colour of the tab of which page the user is on -->
-	<ul>
-		<li style="float: right"><a href="login.jsp">Account</a></li>
-		<li style="float: right"><a href="#about">WishList</a></li>
-		<li style="float: right"><a href="checkout.jsp">Check Out</a></li>
-		<li style="float: right"><a href="showcart.jsp">Cart</a></li>
-	</ul>
-	<ul>
+	<ul>		
+		<li style="float: right"><a href="login.jsp">Account <i class="fa fa-user-circle" aria-hidden="true"></i></a></li>
+		<li style="float: right"><a href="#about">WishList <i class="fa fa-heart" aria-hidden="true"></i></a></li>		
+		<li style="float: right"><a href="showcart.jsp">Cart <i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
+		
 		<li><a href="shop.html">Home</a></li>
 		<li class="dropdown"><a href="listprod.jsp" class="dropbtn">Shop</a>
 			<div class="dropdown-content">
 				<a href="TurtleNeck.jsp">Turtle Neck</a> <a href="T-Shirt.jsp">T-Shirt</a>
 			</div></li>
-		<li><a href="#contact">Contact</a></li>
-		<li style="float: right"><input type="text" name="search"
-			placeholder="Search.."></li>
+		<li><a href="#contact">Contact</a></li>		
+		<li style="float: left";>
+		<div style="margin-left:auto;margin-right:auto;width: 50%;">		
+		<form align="center" method="get" action="listprod.jsp">
+			<input type="text" name="productName" size="50" placeholder="Search.. Example: Red XL Wool">			
+			<input type="submit" value="Submit">
+			<input type="submit" value="Clear Searches">
+		</form>
+		</div>
+	</li>
 	</ul>
 	<br>
 
 	<!-- Search Menu -->
-	<h4 style="font-family: Raleway;">
-		<i>Shop by category</i>
-		</h3>
-		<form method="get" action="listprod.jsp">
-			<input type="text" name="productName" size="50"> <input
-				type="submit" value="Submit"><input type="reset"
-				value="Reset">
-		</form>
-		<br>
+	
+
 
 		<!-- Products listed in a Table -->
-		<h1 style="font-family: Raleway;" align="center">
-			<span style="color: orange">C</span>urrent Favourites
-		</h1>
+		
 		<!--  Main product table -->
-		<table style="width: 100%">
+		
 			<%
+								
 				// Get product name to search for
 				String search = request.getParameter("productName");
-				String[] searches;
-				out.print("<h1>" + search + "</h1>");
+				String[] searches;				
 				boolean hasParameter = false;
 				String sql = "";
 				final int MAX_SEARCH_ITEMS = 10;
@@ -68,12 +66,17 @@
 				int ITEMS_PER_ROW = 5;
 				int count = 0;
 
-				//Choose which query we are performing
-				if (search == null) {
+				//If there is no search / sorting 
+				if (search == null || search == "") {
+					out.print("<h1 style=\"align=\"center\">");
+					out.print("<span style=\"color: orange\">A</span>ll Products</h1>");
 					search = "";
 					searches = new String[] { "" };
+					
+				//If there is a search or sorting
 				} else {
 					//Split the search up to look for multiple words
+					out.print("<div class=\"divider\"><h2>Search for " + search + "</h2></div>");
 					searches = search.split("\\s+");
 				}
 				//Displaying everything
@@ -117,6 +120,9 @@
 					ResultSet rst = pstmt.executeQuery();
 					
 					//Display search results (or list of all products)
+					
+					out.print("<table style=\"width: 100%\">");
+					
 					while (rst.next()) {
 
 						if (count == ITEMS_PER_ROW) {

@@ -1,17 +1,18 @@
 DROP TABLE OrderContains,WishList, Review,Cart,Customer, Payment,Product,PST,Shipment;
 
 CREATE TABLE Customer (
-CustomerID 	int				NOT NULL PRIMARY KEY,
-password 	VARCHAR(20) 	NOT NULL,
-firstName 	VARCHAR(50) 	NOT NULL,
-lastName 	VARCHAR(50) 	NOT NULL,
-email 		VARCHAR(30) 	NOT NULL,
+customerID 	int				 NOT NULL PRIMARY KEY,
+customerUserName VARCHAR(20) NOT NULL,
+password 	VARCHAR(20) 	 NOT NULL,
+firstName 	VARCHAR(50) 	 NOT NULL,
+lastName 	VARCHAR(50) 	 NOT NULL,
+email 		VARCHAR(30) 	 NOT NULL,
 houseNo 	VARCHAR(20),
 street		VARCHAR(20),
 city 		VARCHAR(20),
 province 	VARCHAR(20),
 postalCode 	VARCHAR(10),
-accessLevel SMALLINT 	 	NOT NULL
+accessLevel SMALLINT 	 	 NOT NULL
 );
 
 CREATE TABLE Shipment(
@@ -113,7 +114,7 @@ INSERT Product Values(5,'blue','wool','Roots','xl',28.0,1,'Turtle Neck','product
 INSERT Product Values(6,'red','wool','Roots','xl',28.0,1,'Turtle Neck','product6.jpg',3);
 INSERT Product Values(7,'red','wool','Roots','xl',28.0,1,'Turtle Neck','product7.jpg',3);
 INSERT Product Values(8,'pink','wool','Roots','xl',28.0,1,'Turtle Neck','product8.jpg',3);
-INSERT Product Values(9,'pink','wool','Roots','xl',28.0,1,'Turtle Neck','product9.jpg',3);
+INSERT Product Values(9,'pink','wool','Roots','xl',28.0,1,'Pjs','product9.jpg',3);
 INSERT Product Values(10,'grey','cotton','Roots','xl',14.0,1.5,'T-Shirt','product10.jpg',3);
 INSERT Product Values(11,'grey','wool','Roots','xl',28.0,1,'Turtle Neck','product11.jpg',3);
 INSERT Product Values(12,'yellow','wool','Roots','xl',28.0,1,'Turtle Neck','product12.jpg',3);

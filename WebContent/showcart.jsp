@@ -1,4 +1,4 @@
-s<%@ page import="java.util.HashMap" %>
+<%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.Iterator" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.text.NumberFormat" %>
@@ -15,6 +15,9 @@ s<%@ page import="java.util.HashMap" %>
 // Get the current list of products
 @SuppressWarnings({"unchecked"})
 HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
+
+//Price Variable
+double pr = 0.0f;
 
 if (productList == null)
 {	out.println("<H2><span style='color:orange;'>Y</span>ou have no items in your cart..</H1>");%>
@@ -39,7 +42,12 @@ else
 		out.print("<td>"+product.get(1)+"</td>");
 
 		out.print("<td align=\"center\">"+product.get(3)+"</td>");
-		double pr = Double.parseDouble( (String) product.get(2));
+		
+		//Makes sure that there is a value for price not sure why,
+		//but this was throwing a null pointer error before. 
+		if(!(product.get(2)==null)){
+			pr  = Double.parseDouble( (String) product.get(2));
+		}
 		int qty = ( (Integer)product.get(3)).intValue();
 
 		out.print("<td align=\"right\">"+currFormat.format(pr)+"</td>");

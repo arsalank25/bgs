@@ -8,7 +8,6 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="style.css">
-
 <title>Shop</title>
 </head>
 
@@ -30,7 +29,6 @@
 				<a href="T-Shirt.jsp">T-Shirt</a>
 				
 				
-					3</a>
 			</div></li>
 		<li><a href="#contact">Contact</a></li>
 		<li style="float: right"><input type="text" name="search"
@@ -55,7 +53,7 @@
 
 		<!-- Products listed in a Table -->
 		<h1 style="font-family: Raleway;" align="center">
-			<span style="color: orange">T</span>urtle Neck Sweaters
+			<span style="color: orange">T</span>-Shirts
 		</h1>
 
 		<table style="width: 100%">
@@ -75,7 +73,7 @@
 				try {
 					Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 					con = DriverManager.getConnection(url, uid, pw);
-					sql = "SELECT pId,style,color,price,size FROM Product WHERE style = 'Turtle Neck'";
+					sql = "SELECT pId,style,color,price,size FROM Product WHERE style = 'T-Shirt'";
 					prep = con.prepareStatement(sql);
 
 					ResultSet rst = prep.executeQuery();
@@ -104,7 +102,7 @@
 
 			<th>
 			<td><img src=<%=img %> style="width: 150px; height: 100px;">
-			<p>
+				<p>
 								
 									<b><%out.print('\n' + productStyle);%></b><br>	
 									<% 	out.print("Available colour: " + productColour); %><br>
@@ -113,9 +111,9 @@
 									<%NumberFormat currFormat = NumberFormat.getCurrencyInstance();
 										out.print(currFormat.format(price));%>
 								</p>
-				<p>
-					<a href=<%=link%>> Add to Cart </a>
-				</p></td>
+								
+					<p><a href=<%=link%>> Add to Cart </a></p>
+					</td>
 			</th>
 
 			<%

@@ -1,17 +1,18 @@
 DROP TABLE OrderContains,WishList, Review,Cart,Customer, Payment,Product,PST,Shipment;
 
 CREATE TABLE Customer (
-CustomerID 	int				NOT NULL PRIMARY KEY,
-password 	VARCHAR(20) 	NOT NULL,
-firstName 	VARCHAR(50) 	NOT NULL,
-lastName 	VARCHAR(50) 	NOT NULL,
-email 		VARCHAR(30) 	NOT NULL,
+customerID 	int				 NOT NULL PRIMARY KEY,
+customerUserName VARCHAR(20) NOT NULL,
+password 	VARCHAR(20) 	 NOT NULL,
+firstName 	VARCHAR(50) 	 NOT NULL,
+lastName 	VARCHAR(50) 	 NOT NULL,
+email 		VARCHAR(30) 	 NOT NULL,
 houseNo 	VARCHAR(20),
 street		VARCHAR(20),
 city 		VARCHAR(20),
 province 	VARCHAR(20),
 postalCode 	VARCHAR(10),
-accessLevel SMALLINT 	 	NOT NULL
+accessLevel SMALLINT 	 	 NOT NULL
 );
 
 CREATE TABLE Shipment(

@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="style.css">
 <script>
 function validateForm() {
     var x = document.forms["loginForm"]["uname"].value;
@@ -19,8 +20,6 @@ function validateForm() {
     }
 }
 
-
-
 </script>
 <title>Log In</title>
 </head>
@@ -32,125 +31,7 @@ String pw = "group11";
 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver"); 
 con = DriverManager.getConnection(url,uid,pw); %>
 
-<style>
-form {
-    border: 3px solid #f1f1f1;
-}
 
-input[type=text], input[type=password] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-}
-
-button {
-    background-color: orange;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-}
-
-.cancelbtn {
-    width: auto;
-    padding: 10px 18px;
-    background-color: #f44336;
-}
-
-.imgcontainer {
-    text-align: center;
-   margin-top: 5px;
-    margin-bottom: 5px;
-    margin-right: 150px;
-    margin-left: 80px;
-}
-
-img.avatar {
-    width: 40%;
-    border-radius: 50%;
-}
-
-.container {
-    padding: 16px;
-    font-family: "Raleway";
-
-}
-
-span.psw {
-    float: right;
-    padding-top: 16px;
-}
-
-
-
-
-ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-	overflow: hidden;
-	background-color: #FFFFFF;
-}
-
-li {
-	float: left;
-}
-
-li a {
-	display: block;
-	color: black;
-	text-align: center;
-	padding: 14px 16px;
-	text-decoration: none;
-	font-family: "Raleway";
-	font-weight: bold;
-}
-
-li a:hover {
-	background-color: #C0C0C0;
-}
-
-.active {
-	background-color: #4CAF50;
-}
-
-li.dropdown {
-	display: inline-block;
-}
-
-.dropdown-content {
-	display: none;
-	position: absolute;
-	background-color: #f9f9f9;
-	min-width: 160px;
-	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-}
-
-.dropdown-content a {
-	color: black;
-	padding: 12px 16px;
-	text-decoration: none;
-	display: block;
-	text-align: left;
-}
-
-.dropdown-content a:hover {
-	background-color: #f1f1f1
-}
-
-.dropdown:hover .dropdown-content {
-	display: block;
-}
-
-p {
-	font-family: "Raleway";
-}
-</style>
 <body>
 <!-- Navigation menus -->
 <!-- class="active" is used to change the colour of the tab of which page the user is on -->

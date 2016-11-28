@@ -7,23 +7,7 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link rel="stylesheet" href="images/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Abel" />
-<script>
-function validateForm() {
-    var x = document.forms["loginForm"]["uname"].value;
-    if (x == "") {
-        alert("Please enter your username");
-        return false;
-    }
-    
-    var y = document.forms["loginForm"]["psw"].value;
-    if (y == "") {
-        alert("Please enter your password");
-        return false;
-    }
-}
-
-</script>
-<title>Log In</title>
+<title>Contact Us</title>
 </head>
 
 <% Connection con = null;
@@ -33,13 +17,13 @@ String pw = "group11";
 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver"); 
 con = DriverManager.getConnection(url,uid,pw); %>
 
-
 <body>
 <!-- Navigation menus -->
 <!-- class="active" is used to change the colour of the tab of which page the user is on -->
 
-	<ul>		
-		<li style="float: right"><a class="active" href="login.jsp">Account <i class="fa fa-user-circle" aria-hidden="true"></i></a></li>
+
+<ul>		
+		<li style="float: right"><a href="login.jsp">Account <i class="fa fa-user-circle" aria-hidden="true"></i></a></li>
 		<li style="float: right"><a href="#about">WishList <i class="fa fa-heart" aria-hidden="true"></i></a></li>		
 		<li style="float: right"><a href="showcart.jsp">Cart <i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
 		
@@ -48,7 +32,7 @@ con = DriverManager.getConnection(url,uid,pw); %>
 			<div class="dropdown-content">
 				<a href="TurtleNeck.jsp">Turtle Neck</a> <a href="T-Shirt.jsp">T-Shirt</a>
 			</div></li>
-		<li><a href="contact.jsp">Contact</a></li>		
+		<li><a class="active" href="contact.jsp">Contact</a></li>		
 		<li style="float: left";>
 		<div style="margin-left:auto;margin-right:auto;width: 50%;">		
 		<form align="center" method="get" action="listprod.jsp">
@@ -63,24 +47,21 @@ con = DriverManager.getConnection(url,uid,pw); %>
 	<br>
 
 
+<h2 style="font-family:Raleway;"><span style="color:orange;">C</span>ontact Us</h2>
+<p>You will receive a response within 24 hours</p>
 
-<form name="loginForm" action="listprod.jsp" onsubmit="return validateForm()">
-  <div class="imgcontainer">
-    <img src="images/BGSLogo.jpg" alt="Avatar" class="avatar">
-  </div>
-
-  <div class="container">
-    <label><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="uname" required>
-
-    <label><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
-        
-    <button type="submit">Login</button>
-    
-  </div>
+<!--  Taylor's email is a placement holder  -->
+<form action="taylorjsie@gmail.com" method="post" enctype="text/plain">
+Name:<br>
+<input type="text" name="name"><br>
+E-mail:<br>
+<input type="text" name="mail"><br>
+Comment:<br>
+<input type="text" name="comment" size="50"><br><br>
+<input type="submit" value="Send">
+<input type="reset" value="Reset">
 </form>
 
-
 </body>
+
 </html>

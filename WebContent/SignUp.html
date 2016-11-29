@@ -60,11 +60,11 @@ function validateForm() {
 
 	<br>
 
+<!-- onsubmit="return validateForm()" -->
 
-
-<form name="signupForm" method="POST" action="register.jsp" onsubmit="return validateForm()" autocomplete="on">
+<form name="signupForm" method="GET" action="register.jsp"  autocomplete="on">
   <div class="imgcontainer">
-    <img src="images/BGSLogo.jpg" alt="Avatar" class="avatar">
+<!--     <img src="images/BGSLogo.jpg" alt="Avatar" class="avatar"> -->
   </div>
   <div class="container">
   	<label><b>Username</b></label>
@@ -101,6 +101,12 @@ function validateForm() {
     
   </div>
 </form>
+
+<script>
+function myFunction() {
+    alert("Hello\nHow are you?");
+}
+</script>
 </body>
 
 </html>

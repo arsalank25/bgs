@@ -14,6 +14,7 @@
 // Add new product selected
 // Get product information CustomerUserName
 
+
 String customerUserName = request.getParameter("uname");
 String firstName = request.getParameter("fname");
 String lastName = request.getParameter("lname");
@@ -24,6 +25,15 @@ String street = request.getParameter("street");
 String city = request.getParameter("city");
 String province = request.getParameter("province");
 String postalCode = request.getParameter("postalCode");
+
+
+out.println(customerUserName);
+out.println(firstName);
+out.println(lastName);
+out.println(email);
+out.println(password);
+out.println(houseNo);
+out.println(street);
 
 out.print(postalCode);
 
@@ -76,11 +86,6 @@ else if (province.equals(null) || province.equals("") || province.length() != 2)
 }
 
 
-else if (! matcher.matches()){ // Determine if there are products in the shopping cart
-	%>
-	<h2> out.println("Invalid Postal code. Go back to the previous page and try again."); </h2>  
-	<%
-}else {
 	try{
 		// Make database connection
 				Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -97,11 +102,24 @@ else if (! matcher.matches()){ // Determine if there are products in the shoppin
 				
 				// Save order information to database
 				
-				sql = "SELECT MAX(customerID) FROM Customer";
+				sql = "SELECT MAX(customerID) AS lastID FROM Customer";
 				prep = con.prepareStatement(sql);
 				res = prep.executeQuery();
-				int customerID = res.getInt("customerID")+1; // this gets the max id and adds one to make new id for new cust
-				insert = "INSERT INTO Customer(customerID,customerUserName,password,firstName,lastName,email,houseNo,street,city,province,postalCode, customerIDaccessLevel) VALUES (?,?,?,?,?,?,?,?,?,?,?,0)";//by defult the access level will be zero 
+							
+				//Yes I know this is weird. If we don't have res.next() it doesn't work, but 
+				//if we put the assignment of customerID in an if statement, then we would need to declare
+				//int customerID = 0; but that would be dangerous. 
+				if (!res.next()){
+					out.print("<br>No results<br>");
+				}else{
+					out.print("<br>res.getInt() = "+res.getInt("lastID")+"<br>");
+				}
+				int customerID = res.getInt("lastID")+1; // this gets the max id and adds one to make new id for new cust
+				
+				
+				
+				
+				insert = "INSERT INTO Customer(customerID,customerUserName,password,firstName,lastName,email,houseNo,street,city,province,postalCode, accessLevel) VALUES (?,?,?,?,?,?,?,?,?,?,?,0)";//by defult the access level will be zero 
 				prep2 = con.prepareStatement(insert);			
 				prep2.setInt(1, customerID);
 				prep2.setString(2, customerUserName);
@@ -109,22 +127,13 @@ else if (! matcher.matches()){ // Determine if there are products in the shoppin
 				prep2.setString(4, firstName);
 				prep2.setString(5, lastName);
 				prep2.setString(6, email);
-				prep.setString(7, houseNo);
-				prep.setString(8, street);
-				prep.setString(9, city);
-				prep.setString(10, province);
-				prep.setString(11, postalCode);
-				prep2.executeUpdate();			
-			
+				prep2.setString(7, houseNo);
+				prep2.setString(8, street);
+				prep2.setString(9, city);
+				prep2.setString(10, province);
+				prep2.setString(11, postalCode);
+				prep2.executeUpdate();	
 				
-				
-				prep.executeUpdate();			
-							
-				
-							
-				
-		
-		
 		
 	}
 	catch(SQLException ex){	
@@ -132,7 +141,9 @@ else if (! matcher.matches()){ // Determine if there are products in the shoppin
 	    String className = fullClassName.substring(fullClassName.lastIndexOf(".") + 1);
 	    String methodName = ex.getStackTrace()[2].getMethodName();
 	    int lineNumber = ex.getStackTrace()[2].getLineNumber();	
-	    System.err.println(className + "." + methodName + "():" + lineNumber + "Message: " + ex);
+	    out.println(className + "." + methodName + "():" + lineNumber + "Message: " + ex);
+	}catch(Exception e){
+		out.print(e.toString());
 	}
 	finally {
 		if(con != null){
@@ -140,14 +151,12 @@ else if (! matcher.matches()){ // Determine if there are products in the shoppin
 				con.close();
 			}catch(SQLException ex){	
 				out.println(ex);
-			}
+			}finally{
+				
 		}
 	}
 	
 }
 
 
-
-
 %>
-<jsp:forward page="showcart.jsp" />

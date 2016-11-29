@@ -2,7 +2,9 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="style.css">
-        <title>Home</title>
+<link rel="stylesheet" href="images/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Abel" />
+<title>Home</title>
 </head>
 <body>
 <!-- Navigation menus -->
@@ -14,33 +16,40 @@
 <li style="float:right"><a  href="#about">WishList</a></li>
 <li style="float:right"><a href="checkout.jsp">Check Out</a></li>
 <li style="float:right"><a href="showcart.jsp">Cart</a></li>
-</ul>
-<ul>
-  <li><a href="shop.html">Home</a></li>
-   <li class="dropdown">
-    <a href="listprod.jsp" class="dropbtn">Shop</a>
-    
+
+ <li><a class="active" href="shop.html">Home</a></li>
+ <li class="dropdown">
+    <a href="listprod.jsp" class="dropbtn">Shop</a>    
     <div class="dropdown-content">
       <a href="TurtleNeck.jsp">Turtle Neck</a>
       <a href="T-Shirt.jsp">T-Shirt</a>   
     </div></li>
-  <li><a href="#contact">Contact</a></li>
-  <li style="float:right"><form method="get" action="listprod.jsp">
-		<input type="text" name="productName" size="50"> <input
-			type="submit" value="Submit">
-	</form></li>
+ <li><a href="contact.jsp">Contact</a></li>
+  
   
 </ul>
 
 <br>
 <br>
 
-<img align="right" src="images/product3.jpg"  style="width:350px;height:228px;">
+
 
 <!-- Banner -->
+<div>
+<img style = "display: block; margin: 0 auto;width:350px;height:228px;" src="images/product16.jpg">
+<h1 align="center"><span style="color:orange;">B</span>aby Goat Sweaters</h1>
+<h2 align="center"/>Weather Proof and Warm</h2>
+<h2 align="center"><form method="get" action="listprod.jsp">
+		<input type="text" name="productName" placeholder="Search | Example: Red XL Wool" size="50"> <input
+			type="submit" id="mainSearch" class="fa fa-search"  value="&#xf002">
+	</form></h2> 
+</div>
 
+<<<<<<< HEAD
+=======
 <h1 align="center" style="font-family:Raleway;"><span style="color:orange;">B</span>aby Goat Sweaters</h1>
 <h3 align="center" style="font-family:Raleway;">Weather Proof and Warm</h3>
+>>>>>>> refs/remotes/origin/BGS-Arsalan
 
 <!--  
 <h2 align="center"><a href="listprod.jsp">Begin Shopping</a></h2>

@@ -8,8 +8,33 @@
 <html>
 <head>
 <title>Your Shopping Cart</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" href="images/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Abel" />
 </head>
 <body>
+
+
+<ul>
+<li style="float:left"><img src="images/BGSLogo.jpg" style="width:50px;height:50px;"></li>
+<li style="float:right"><a  href="login.jsp">Account</a></li>
+<li style="float:right"><a  href="#about">WishList</a></li>
+<li style="float:right"><a href="checkout.jsp">Check Out</a></li>
+<li style="float:right"><a class="active" href="showcart.jsp">Cart</a></li>
+
+ <li><a href="shop.html">Home</a></li>
+ <li class="dropdown">
+    <a href="listprod.jsp" class="dropbtn">Shop</a>    
+    <div class="dropdown-content">
+      <a href="TurtleNeck.jsp">Turtle Neck</a>
+      <a href="T-Shirt.jsp">T-Shirt</a>   
+    </div></li>
+ <li><a href="contact.jsp">Contact</a></li>
+  
+  
+</ul>
+
+
 
 <%
 // Get the current list of products

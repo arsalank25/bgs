@@ -1,4 +1,4 @@
-DROP TABLE OrderContains,WishList, Review,Cart,Customer, Payment,Product,PST,Shipment;
+
 
 CREATE TABLE Customer (
 customerID 	int				 NOT NULL PRIMARY KEY,
@@ -15,18 +15,7 @@ postalCode 	VARCHAR(10),
 accessLevel SMALLINT 	 	 NOT NULL
 );
 
-CREATE TABLE Shipment(
-shipmentNo  		INT		 NOT NULL,
-shipDate  		DATE,
-estimated		DATE,
-noteToService	VARCHAR(140),
-noteOnPackage	VARCHAR(140),
-oID	 			INT		NOT NULL,
-CustomerID 		INT		NOT NULL,
-PRIMARY KEY (shipmentNo ),
-CONSTRAINT fk_customer_cart FOREIGN KEY(CustomerID,oID)
-REFERENCES Cart(CustomerID,oID) 
-);
+
 
 CREATE TABLE PST(
 province		VARCHAR(2) 	NOT NULL,
@@ -49,7 +38,7 @@ PRIMARY KEY (pID)
 );
 
 CREATE TABLE Payment(
-CustomerID 		INT	NOT NULL,
+customerID 		INT	NOT NULL,
 paymentName 	VARCHAR(20)	NOT NULL,
 firstName		VARCHAR(20),
 lastName		VARCHAR(20),
@@ -60,47 +49,62 @@ postalCode 		VARCHAR(10),
 cardNo			INT,
 cardSin			INT,
 cardExpeiryDate	INT,
-PRIMARY KEY(CustomerID , paymentName),
+PRIMARY KEY(customerID , paymentName),
 CONSTRAINT fk_CustomersPayment 
-FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
-);
-
-CREATE TABLE Cart(
-CustomerID		INT		NOT NULL,
-oID				INT		NOT NULL,
-province		VARCHAR(20),
-totalAmount		DEC(8,2),
-GST				INT,
-PRIMARY KEY(CustomerID ,oID),
-CONSTRAINT fk_provincePST 
-FOREIGN KEY (province) REFERENCES PST(province)
+FOREIGN KEY (customerID) REFERENCES Customer(customerID)
 );
 
 CREATE TABLE Review(
 pID 		INT 	NOT NULL,
-CustomerID	INT	NOT NULL,
+customerID	INT	NOT NULL,
 comment		VARCHAR(140), 
 Stars		INT, 
 dateAndTime	DATETIME,
-PRIMARY KEY(CustomerID , pID),
-CONSTRAINT fk_CustomerReview FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID),
+PRIMARY KEY(customerID , pID),
+CONSTRAINT fk_CustomerReview FOREIGN KEY (customerID) REFERENCES Customer(customerID),
 CONSTRAINT fk_ProductReview FOREIGN KEY (pID) REFERENCES Product(pID)
 );
 
 CREATE TABLE WishList(
 pID 			INT 	NOT NULL,
-CustomerID		INT	NOT NULL,
-PRIMARY KEY(CustomerID ),
-CONSTRAINT fk_CustomerWishlist FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
+customerID		INT	NOT NULL,
+PRIMARY KEY(customerID ),
+CONSTRAINT fk_CustomerWishlist FOREIGN KEY (customerID) REFERENCES Customer(customerID)
 );
 
-CREATE TABLE OrderContains(
-oID			INT		NOT NULL, 
+
+CREATE TABLE Cart(
+customerID		INT		NOT NULL,
+cID				INT		NOT NULL,
+province		VARCHAR(2) 	NOT NULL,
+totalAmount		DEC(8,2),
+GST				INT,
+PRIMARY KEY(customerID ,cID),
+CONSTRAINT fk_provincePST 
+FOREIGN KEY (province) REFERENCES PST(province)
+);
+
+CREATE TABLE Shipment(
+shipmentNo  		INT		 NOT NULL,
+shipDate  		DATE,
+estimated		DATE,
+noteToService	VARCHAR(140),
+noteOnPackage	VARCHAR(140),
+cID	 			INT		NOT NULL,
+customerID 		INT		NOT NULL,
+PRIMARY KEY (shipmentNo ),
+CONSTRAINT fk_customer_cart FOREIGN KEY(customerID,cID)
+REFERENCES Cart(customerID,cID) 
+);
+
+CREATE TABLE CartContains(
+cID			INT		NOT NULL,
+customerID	INT		NOT NULL,
 pID 		INT 	NOT NULL,
 quantity	INT		NOT NULL,
-PRIMARY KEY(oID,pID),
-CONSTRAINT fk_Cart_Order FOREIGN KEY (oID) REFERENCES Cart(oID),
-CONSTRAINT fk_Orders_quantity FOREIGN KEY (pID) REFERENCES Product(pID)
+PRIMARY KEY(cID,pID,customerID),
+CONSTRAINT fk_cuscart FOREIGN KEY(customerID,cID) REFERENCES Cart(customerID,cID) ,
+CONSTRAINT fk_Cart_quantity FOREIGN KEY (pID) REFERENCES Product(pID)
 );
 
 

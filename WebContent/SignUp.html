@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" href="images/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Abel" />
+<script>
+function validateForm() {
+    var x = document.forms["signupForm"]["uname"].value;
+    var y = document.forms["signupForm"]["psw"].value;
+    var z = document.forms["signupForm"]["fname"].value;
+    var a = document.forms["signupForm"]["lname"].value;
+    var b = document.forms["signupForm"]["email"].value;
+    var c = document.forms["signupForm"]["housenum"].value;
+    var d = document.forms["signupForm"]["street"].value;
+    var e = document.forms["signupForm"]["city"].value;
+    var f = document.forms["signupForm"]["province""].value;
+    var g = document.forms["signupForm"]["pc"].value;
+    if (x == "" || y == "" || z == "" || a == "" || b == "") {
+        alert("Please fill in all fields");
+        return false;
+    }
+  
+    
+ 
+}
+
+</script>
+<title>Sign Up</title>
+</head>
+
+
+<body>
+<!-- Navigation menus -->
+<!-- class="active" is used to change the colour of the tab of which page the user is on -->
+
+	<ul>	
+		<li style="float:left"><img src="images/BGSLogo.jpg" style="width:50px;height:50px;"></li>	
+		<li style="float: right"><a class="active" href="login.jsp">Account <i class="fa fa-user-circle" aria-hidden="true"></i></a></li>
+		<li style="float: right"><a href="#about">WishList <i class="fa fa-heart" aria-hidden="true"></i></a></li>		
+		<li style="float: right"><a href="showcart.jsp">Cart <i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
+		
+		<li><a href="shop.html">Home</a></li>
+		<li class="dropdown"><a href="listprod.jsp" class="dropbtn">Shop</a>
+			<div class="dropdown-content">
+				<a href="TurtleNeck.jsp">Turtle Neck</a> <a href="T-Shirt.jsp">T-Shirt</a>
+			</div></li>
+		<li><a href="contact.jsp">Contact</a></li>		
+		<li style="float: left";>
+		<div style="margin-left:auto;margin-right:auto;width: 50%;">		
+		<form align="center" method="get" action="listprod.jsp">
+			<input type="text" name="productName" size="50" placeholder="Search.. Example: Red XL Wool">			
+			<input type="submit" value="Submit">
+			<input type="submit" value="Clear Searches">
+		</form>
+		</div>
+	</li>
+	</ul>
+
+	<br>
+
+
+
+<form name="signupForm" action="listprod.jsp" onsubmit="return validateForm()">
+  <div class="imgcontainer">
+    <img src="images/BGSLogo.jpg" alt="Avatar" class="avatar">
+  </div>
+
+  <div class="container">
+  	<label><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="uname" required>
+  
+    <label><b>First Name</b></label>
+    <input type="text" placeholder="Enter Username" name="fname" required>
+    
+     <label><b>Last Name</b></label>
+    <input type="text" placeholder="Enter Username" name="lname" required>
+    
+    <label><b>Email</b></label>
+    <input type="password" placeholder="Enter Email" name="email" required>
+    
+    <label><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="psw" required>
+    
+    <label><b>House Number</b></label>
+    <input type="password" placeholder="Enter House Number" name="housenum" required>
+    
+    <label><b>Street</b></label>
+    <input type="password" placeholder="Enter Street" name="street" required>
+    
+    <label><b>City</b></label>
+    <input type="password" placeholder="Enter City" name="city" required>
+    
+    <label><b>Province</b></label>
+    <input type="password" placeholder="Enter Province" name="province" required>
+    
+    <label><b>Postal Code</b></label>
+    <input type="password" placeholder="Enter Postal Code" name="pc" required>
+        
+    <button type="submit">Submit</button>
+    
+  </div>
+</form>
+
+
+</body>
+<jsp:forward page="register.jsp" />
+</html>

@@ -10,14 +10,10 @@
 
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
 <%
-
-
-
-
 // Add new product selected
 // Get product information CustomerUserName
-String customerUserName = request.getParameter("customerUserName");
 
+String customerUserName = request.getParameter("customerUserName");
 String firstName = request.getParameter("firstName");
 String lastName = request.getParameter("lastName");
 String email = request.getParameter("email");

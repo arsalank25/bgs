@@ -101,7 +101,7 @@ else if (! matcher.matches()){ // Determine if there are products in the shoppin
 				prep = con.prepareStatement(sql);
 				res = prep.executeQuery();
 				int customerID = res.getInt("customerID")+1; // this gets the max id and adds one to make new id for new cust
-				insert = "INSERT INTO Customer(customerID,customerUserName,password,firstName,lastName,email,accessLevel) VALUES (?,?,?,?,?,?,0)";//by defult the access level will be zero 
+				insert = "INSERT INTO Customer(customerID,customerUserName,password,firstName,lastName,email,houseNo,street,city,province,postalCode, customerIDaccessLevel) VALUES (?,?,?,?,?,?,?,?,?,?,?,0)";//by defult the access level will be zero 
 				prep2 = con.prepareStatement(insert);			
 				prep2.setInt(1, customerID);
 				prep2.setString(2, customerUserName);
@@ -109,17 +109,14 @@ else if (! matcher.matches()){ // Determine if there are products in the shoppin
 				prep2.setString(4, firstName);
 				prep2.setString(5, lastName);
 				prep2.setString(6, email);
-							
-			   prep2.executeUpdate();			
+				prep.setString(7, houseNo);
+				prep.setString(8, street);
+				prep.setString(9, city);
+				prep.setString(10, province);
+				prep.setString(11, postalCode);
+				prep2.executeUpdate();			
+			
 				
-				update = "UPDATE  Customer SET houseNo= ?,street= ?,city= ?,province= ?,postalCode= ? WHERE customerID = ?";	
-				prep = con.prepareStatement(update);	
-				prep.setString(1, houseNo);
-				prep.setString(2, street);
-				prep.setString(3, city);
-				prep.setString(4, province);
-				prep.setString(5, postalCode);
-				prep.setInt(5, customerID);
 				
 				prep.executeUpdate();			
 							

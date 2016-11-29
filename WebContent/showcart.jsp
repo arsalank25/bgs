@@ -45,6 +45,12 @@ function update(newid, newqty)
 <FORM name="form1">
 
 <%
+
+//Get the user if it exists
+HashMap<String, String> userSession = (HashMap<String, String>) session.getAttribute("userSession");
+
+
+
 // Get the current list of products
 HashMap productList = (HashMap) session.getAttribute("productList");
 ArrayList product = new ArrayList();
@@ -80,7 +86,12 @@ else
 	}
 
 	// print out HTML to print out the shopping cart
-	out.println("<H1>Your Shopping Cart</H1>");
+	if(userSession != null){
+		String firstName = userSession.get("FirstName");
+		out.println("<H1>"+firstName+"'s Shopping Cart</H1>");
+	}else{
+		out.println("<H1>Your Shopping Cart</H1>");
+	}
 	out.print("<TABLE><TR><TH>Product Id</TH><TH>Product Name</TH><TH>Quantity</TH>");
 	out.println("<TH>Price</TH><TH>Subtotal</TH><TH></TH><TH></TH></TR>");
 
@@ -119,11 +130,19 @@ else
 			+"<TD ALIGN=RIGHT>"+currFormat.format(total)+"</TD></TR>");
 	out.println("</TABLE>");
 	//give user option to check out
+	
 	out.println("<H2><A HREF=\"checkout.jsp\">Check Out</A></H2>");
 }
 // set the shopping cart
 session.setAttribute("productList", productList);
 // give the customer the option to add more items to their shopping cart
+
+if(userSession != null){
+	out.print("<h4><a href=\"saveCart.jsp\">Save Cart</a></h>");
+}else{
+	out.print("<h4><a href=\"login.jsp\">Please Login to save cart</a></h>");
+}
+
 %>
 <h4 style="font-family:Raleway;"><a href="listprod.jsp">Continue Shopping</a></h2>
 </body>

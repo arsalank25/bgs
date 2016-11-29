@@ -90,7 +90,7 @@
 				String pw = "group11";
 				Connection con = null;
 
-				String sql = "SELECT customerID, firstName, lastName, email FROM Customer WHERE password = ? AND customerUserName = ?";
+				String sql = "SELECT customerID, firstName, lastName, email,province FROM Customer WHERE password = ? AND customerUserName = ?";
 
 				try {
 
@@ -109,6 +109,7 @@
 						userSession.put("FirstName", rs.getString("FirstName"));
 						userSession.put("LastName", rs.getString("LastName"));
 						userSession.put("email", rs.getString("email"));
+						userSession.put("province", rs.getString("province"));
 						
 						//Update Session Variables					
 						session.setAttribute("userSession", userSession);

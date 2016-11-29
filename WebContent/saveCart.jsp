@@ -21,15 +21,19 @@ ResultSet res, res2,  keys, resCustName = null;
 String sql, sql2, insertProduct, update, insert, getCustName = "";
 PreparedStatement prep, prep2, insertPrep, updatePrep, pstmt, prepCustName = null;
 
-int customerId = 0;
+
 boolean custumerIdNotANumber = false;
 
-// Get customer id
-int customerId =  session.getAttribute("customerId");
-HashMap<String, ArrayList<Object>> userSession= (HashMap<String, ArrayList<Object>>) session.getAttribute("userSession"); // this is the code eric give me to add 
+
+
+//Get Product and user sessions
 @SuppressWarnings({"unchecked"})
+HashMap<String,String> userSession= (HashMap<String,String>) session.getAttribute("userSession"); 
 HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
 
+//Get customer id
+int customerId =  Integer.parseInt(userSession.get("CustomerID"));
+System.out.println("Cusomter ID: "+customerId);
 
 
 if (productList.size() == 0){ // Determine if there are products in the shopping cart
@@ -44,16 +48,19 @@ else {
 	 	con = DriverManager.getConnection(url,uid,pw);
 		
 	 	
+	 	//********Commented out, we shouldn't need to retrive anything from database*************//
+	 	
 		// Save order information to database
+		/*
 		insert = "INSERT INTO Cart(customerId) VALUES (?)";		
 					
-		// Use retrieval of auto-generated keys.
+		 // Use retrieval of auto-generated keys.
 		pstmt = con.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);	
 		pstmt.setInt(1, customerId);
 		pstmt.executeUpdate();
 		keys = pstmt.getGeneratedKeys();
 		keys.next();
-		int orderId = keys.getInt(1);
+		int orderId = keys.getInt(1); */
 					
 		// Here is the code to traverse through a HashMap
 		// Each entry in the HashMap is an ArrayList with item 0-id, 1-name, 2-price, 3-quantity

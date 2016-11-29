@@ -36,56 +36,94 @@
 
 
 
+<script>
+function update(newid, newqty)
+{
+	window.location="showcart.jsp?update="+newid+"&newqty="+newqty;
+}
+</script>
+<FORM name="form1">
+
 <%
 // Get the current list of products
-@SuppressWarnings({"unchecked"})
-HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
+HashMap productList = (HashMap) session.getAttribute("productList");
+ArrayList product = new ArrayList();
+String id = request.getParameter("delete");
+String update = request.getParameter("update");
+String newqty = request.getParameter("newqty");
 
-//Price Variable
-double pr = 0.0f;
-
+// check if shopping cart is empty
 if (productList == null)
-{	out.println("<H2><span style='color:orange;'>Y</span>ou have no items in your cart..</H1>");%>
-	<img align="center" src="images/sad_bb_goat.jpg"  style="width:430px;height:228px;">
-<% 
-	productList = new HashMap<String, ArrayList<Object>>();
+{	out.println("<H1>Your shopping cart is empty!</H1>");
+	productList = new HashMap();
 }
 else
 {
 	NumberFormat currFormat = NumberFormat.getCurrencyInstance();
-
-	out.println("<h1>Your Shopping Cart</h1>");
-	out.print("<table><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
-	out.println("<th>Price</th><th>Subtotal</th></tr>");
-
-	double total =0;
-	Iterator<Map.Entry<String, ArrayList<Object>>> iterator = productList.entrySet().iterator();
-	while (iterator.hasNext()) 
-	{	Map.Entry<String, ArrayList<Object>> entry = iterator.next();
-		ArrayList<Object> product = (ArrayList<Object>) entry.getValue();
-		out.print("<tr><td>"+product.get(0)+"</td>");
-		out.print("<td>"+product.get(1)+"</td>");
-
-		out.print("<td align=\"center\">"+product.get(3)+"</td>");
-		
-		//Makes sure that there is a value for price not sure why,
-		//but this was throwing a null pointer error before. 
-		if(!(product.get(2)==null)){
-			pr  = Double.parseDouble( (String) product.get(2));
+	
+	// if id not null, then user is trying to remove that item from the shopping cart
+	if(id != null && (!id.equals(""))) {
+		if(productList.containsKey(id)) {
+			productList.remove(id);
 		}
-		int qty = ( (Integer)product.get(3)).intValue();
+	}
+	
+	// if update isn't null, the user is trying to update the quantity
+	if(update != null && (!update.equals(""))) {
+		if (productList.containsKey(update)) { // find item in shopping cart
+			product = (ArrayList) productList.get(update);
+			product.set(3, (new Integer(newqty))); // change quantity to new quantity
+		}
+		else {
+			productList.put(id,product);
+		}
+	}
 
-		out.print("<td align=\"right\">"+currFormat.format(pr)+"</td>");
-		out.print("<td align=\"right\">"+currFormat.format(pr*qty)+"</td></tr>");
-		out.println("</tr>");
+	// print out HTML to print out the shopping cart
+	out.println("<H1>Your Shopping Cart</H1>");
+	out.print("<TABLE><TR><TH>Product Id</TH><TH>Product Name</TH><TH>Quantity</TH>");
+	out.println("<TH>Price</TH><TH>Subtotal</TH><TH></TH><TH></TH></TR>");
+
+	int count = 0;
+	double total =0;
+	// iterate through all items in the shopping cart
+	Iterator iterator = productList.entrySet().iterator();
+	while (iterator.hasNext()) {
+		count++;
+		Map.Entry entry = (Map.Entry)(iterator.next());
+		product = (ArrayList) entry.getValue();
+		// read in values for that product ID
+		out.print("<TR><TD>"+product.get(0)+"</TD>");
+		out.print("<TD>"+product.get(1)+"</TD>");
+
+		out.print("<TD ALIGN=CENTER><INPUT TYPE=\"text\" name=\"newqty"+count+"\" size=\"3\" value=\""
+			+product.get(3)+"\"></TD>");
+		double pr = Double.parseDouble( (String) product.get(2));
+		int qty = ( (Integer)product.get(3)).intValue();
+		
+		// print out values for that product from shopping cart
+		out.print("<TD ALIGN=RIGHT>"+currFormat.format(pr)+"</TD>");
+		out.print("<TD ALIGN=RIGHT>"+currFormat.format(pr*qty)+"</TD>");
+		// allow the customer to delete items from their shopping cart by clicking here
+		out.println("<TD>&nbsp;&nbsp;&nbsp;&nbsp;<A HREF=\"showcart.jsp?delete="
+			+product.get(0)+"\">Remove Item from Cart</A></TD>");
+		// allow customer to change quantities for a product in their shopping cart
+		out.println("<TD>&nbsp;&nbsp;&nbsp;&nbsp;<INPUT TYPE=BUTTON OnClick=\"update("
+			+product.get(0)+", document.form1.newqty"+count+".value)\" VALUE=\"Update Quantity\">");
+		out.println("</TR>");
+		// keep a running total for all items ordered
 		total = total +pr*qty;
 	}
-	out.println("<tr><td colspan=\"4\" align=\"right\"><b>Order Total</b></td>"
-			+"<td align=\"right\">"+currFormat.format(total)+"</td></tr>");
-	out.println("</table>");
-
-	out.println("<h2><a href=\"checkout.jsp\">Check Out</a></h2>");
+	// print out order total
+	out.println("<TR><TD COLSPAN=4 ALIGN=RIGHT><B>Order Total</B></TD>"
+			+"<TD ALIGN=RIGHT>"+currFormat.format(total)+"</TD></TR>");
+	out.println("</TABLE>");
+	//give user option to check out
+	out.println("<H2><A HREF=\"checkout.jsp\">Check Out</A></H2>");
 }
+// set the shopping cart
+session.setAttribute("productList", productList);
+// give the customer the option to add more items to their shopping cart
 %>
 <h4 style="font-family:Raleway;"><a href="listprod.jsp">Continue Shopping</a></h2>
 </body>

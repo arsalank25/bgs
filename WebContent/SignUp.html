@@ -62,7 +62,7 @@ function validateForm() {
 
 
 
-<form name="signupForm" action="listprod.jsp" onsubmit="return validateForm()">
+<form name="signupForm" action="register.jsp" onsubmit="return validateForm()">
   <div class="imgcontainer">
     <img src="images/BGSLogo.jpg" alt="Avatar" class="avatar">
   </div>
@@ -77,26 +77,26 @@ function validateForm() {
      <label><b>Last Name</b></label>
     <input type="text" placeholder="Enter Username" name="lname" required>
     
-    <label><b>Email</b></label>
-    <input type="password" placeholder="Enter Email" name="email" required>
+    <label><b>Email</b></label><br>
+    <input type="email" placeholder="Enter Email" name="email" required><br>
     
     <label><b>Password</b></label>
     <input type="password" placeholder="Enter Password" name="psw" required>
     
     <label><b>House Number</b></label>
-    <input type="password" placeholder="Enter House Number" name="housenum" required>
+    <input type="text" placeholder="Enter House Number" name="housenum" required>
     
     <label><b>Street</b></label>
-    <input type="password" placeholder="Enter Street" name="street" required>
+    <input type="text" placeholder="Enter Street" name="street" required>
     
     <label><b>City</b></label>
-    <input type="password" placeholder="Enter City" name="city" required>
+    <input type="text" placeholder="Enter City" name="city" required>
     
     <label><b>Province</b></label>
-    <input type="password" placeholder="Enter Province" name="province" required>
+    <input type="text" placeholder="Enter Province" name="province" required>
     
     <label><b>Postal Code</b></label>
-    <input type="password" placeholder="Enter Postal Code" name="pc" required>
+    <input type="text" placeholder="Enter Postal Code" name="pc" required>
         
     <button type="submit">Submit</button>
     

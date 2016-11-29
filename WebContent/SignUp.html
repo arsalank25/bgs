@@ -62,11 +62,10 @@ function validateForm() {
 
 
 
-<form name="signupForm" action="register.jsp" onsubmit="return validateForm()">
+<form name="signupForm" method="POST" action="register.jsp" onsubmit="return validateForm()" autocomplete="on">
   <div class="imgcontainer">
     <img src="images/BGSLogo.jpg" alt="Avatar" class="avatar">
   </div>
-
   <div class="container">
   	<label><b>Username</b></label>
     <input type="text" placeholder="Enter Username" name="uname" required>
@@ -90,20 +89,18 @@ function validateForm() {
     <input type="text" placeholder="Enter Street" name="street" required>
     
     <label><b>City</b></label>
-    <input type="text" placeholder="Enter City" name="city" required>
+    <input type="text" placeholder="Enter City" name="city" required autocomplete="shipping locality">
     
     <label><b>Province</b></label>
     <input type="text" placeholder="Enter Province" name="province" required>
     
     <label><b>Postal Code</b></label>
-    <input type="text" placeholder="Enter Postal Code" name="pc" required>
+    <input type="text" placeholder="Enter Postal Code" name="postalCode" required>
         
     <button type="submit">Submit</button>
     
   </div>
 </form>
-
-
 </body>
-<jsp:forward page="register.jsp" />
+
 </html>

@@ -14,17 +14,18 @@
 // Add new product selected
 // Get product information CustomerUserName
 
-String customerUserName = request.getParameter("customerUserName");
-String firstName = request.getParameter("firstName");
-String lastName = request.getParameter("lastName");
+String customerUserName = request.getParameter("uname");
+String firstName = request.getParameter("fname");
+String lastName = request.getParameter("lname");
 String email = request.getParameter("email");
-String password = request.getParameter("password");
-int customerID = Integer.parseInt(request.getParameter("customerID"));// once the customer logs in, his id needs to be retrived and carried in the html so that their work is tracked
-String houseNo = request.getParameter("houseNo");
+String password = request.getParameter("psw");
+String houseNo = request.getParameter("housenum");
 String street = request.getParameter("street");
 String city = request.getParameter("city");
 String province = request.getParameter("province");
 String postalCode = request.getParameter("postalCode");
+
+out.print(postalCode);
 
 String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_group11";
 String uid = "group11";

@@ -10,6 +10,34 @@
 <%@ page import="java.util.regex.*" %>
 
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet"
+	href="images/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css"
+	href="//fonts.googleapis.com/css?family=Abel" />
+<script>
+	function validateForm() {
+		var x = document.forms["loginForm"]["uname"].value;
+		if (x == "") {
+			alert("Please enter your username");
+			return false;
+		}
+
+		var y = document.forms["loginForm"]["psw"].value;
+		if (y == "") {
+			alert("Please enter your password");
+			return false;
+		}
+	}
+</script>
+<title>Log In</title>
+</head>
+<body>
+
 <%
 // Add new product selected
 // Get product information CustomerUserName
@@ -27,15 +55,6 @@ String province = request.getParameter("province");
 String postalCode = request.getParameter("postalCode");
 
 
-out.println(customerUserName);
-out.println(firstName);
-out.println(lastName);
-out.println(email);
-out.println(password);
-out.println(houseNo);
-out.println(street);
-
-out.print(postalCode);
 
 String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_group11";
 String uid = "group11";
@@ -43,7 +62,6 @@ String pw = "group11";
 Connection con = null; 
 ResultSet res, res2,  keys, resCustName = null;
 String sql, sql2, insertProduct, update, insert, getCustName = "";
-PreparedStatement prep, prep2, insertPrep, updatePrep, pstmt, prepCustName = null;
 EmailValidator validator = EmailValidator.getInstance();
 String regex = "^(?!.*[DFIOQU])[A-VXY][0-9][A-Z] ?[0-9][A-Z][0-9]$";//for postal code validation 
 Pattern pattern = Pattern.compile(regex);
@@ -89,50 +107,45 @@ else if (province.equals(null) || province.equals("") || province.length() != 2)
 	try{
 		// Make database connection
 				Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-			 	con = DriverManager.getConnection(url,uid,pw);
-				sql = "SELECT * FROM Customer WHERE customerUserName = ?";
-				pstmt = con.prepareStatement(sql);
+			 	con = DriverManager.getConnection(url,uid,pw);				
+				PreparedStatement pstmt;				
+				
+				//customerID auto increments
+				sql = "INSERT INTO Customer(customerUserName,password,firstName,lastName,email,houseNo,street,city,province,postalCode, accessLevel) VALUES (?,?,?,?,?,?,?,?,?,?,0)";//by defult the access level will be zero 
+				
+				pstmt = con.prepareStatement(sql);			
+				
 				pstmt.setString(1, customerUserName);
-				res = pstmt.executeQuery();
-				if (res.next()){// if there is next we will get user to make new username as it is present 
-					%>
-					<h2> out.println("The User name is not available. Go back to the previous page and try again."); </h2> 
-					<% 
-				}
+				pstmt.setString(2, password);
+				pstmt.setString(3, firstName);
+				pstmt.setString(4, lastName);
+				pstmt.setString(5, email);
+				pstmt.setString(6, houseNo);
+				pstmt.setString(7, street);
+				pstmt.setString(8, city);
+				pstmt.setString(9, province);
+				pstmt.setString(10, postalCode);
+				pstmt.executeUpdate();					
 				
-				// Save order information to database
+				//No error, so log the user in
+				out.print("<h1>Account Created, please login!<h1>");
+				//Login Form Html
+				out.print(
+						"<form name=\"loginForm\" method=\"POST\" action=\"login.jsp\" onsubmit=\"return validateForm()\">");
+				out.print("<div class=\"imgcontainer\">");
+				out.print("</div>");
+				out.print("<div class=\"container\">");
+				out.print("<label><b>Username</b></label>");
+				out.print("<input type=\"text\" placeholder=\"Enter Username\" name=\"uname\" required>");
+				out.print("<label><b>Password</b></label>");
+				out.print("<input type=\"password\" placeholder=\"Enter Password\" name=\"psw\" required>");
+				out.print("<button type=\"submit\">Login</button>");
+				out.print("</div>");
+				out.print("</form>");
+				out.print("<form name=\"signupForm\" action=\"SignUp.html\">");
+				out.print("<button class=\"cancelbtn\">Not a member?</button>");
+				out.print("</form>");
 				
-				sql = "SELECT MAX(customerID) AS lastID FROM Customer";
-				prep = con.prepareStatement(sql);
-				res = prep.executeQuery();
-							
-				//Yes I know this is weird. If we don't have res.next() it doesn't work, but 
-				//if we put the assignment of customerID in an if statement, then we would need to declare
-				//int customerID = 0; but that would be dangerous. 
-				if (!res.next()){
-					out.print("<br>No results<br>");
-				}else{
-					out.print("<br>res.getInt() = "+res.getInt("lastID")+"<br>");
-				}
-				int customerID = res.getInt("lastID")+1; // this gets the max id and adds one to make new id for new cust
-				
-				
-				
-				
-				insert = "INSERT INTO Customer(customerID,customerUserName,password,firstName,lastName,email,houseNo,street,city,province,postalCode, accessLevel) VALUES (?,?,?,?,?,?,?,?,?,?,?,0)";//by defult the access level will be zero 
-				prep2 = con.prepareStatement(insert);			
-				prep2.setInt(1, customerID);
-				prep2.setString(2, customerUserName);
-				prep2.setString(3, password);
-				prep2.setString(4, firstName);
-				prep2.setString(5, lastName);
-				prep2.setString(6, email);
-				prep2.setString(7, houseNo);
-				prep2.setString(8, street);
-				prep2.setString(9, city);
-				prep2.setString(10, province);
-				prep2.setString(11, postalCode);
-				prep2.executeUpdate();	
 				
 		
 	}

@@ -10,6 +10,10 @@ ul {
 	background-color: #C0C0C0;
 }
 
+th{
+	background-color: orange;
+}
+
 
 li {
     float: left;

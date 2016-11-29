@@ -78,9 +78,11 @@ con = DriverManager.getConnection(url,uid,pw); %>
     <input type="password" placeholder="Enter Password" name="psw" required>
         
     <button type="submit">Login</button>
-    
-    
   </div>
+</form>
+
+<form name="signupForm" action="SignUp.html">
+<button class="cancelbtn">Not a member?</button>
 </form>
 
 

@@ -71,15 +71,13 @@
 	<%
 		//Get info from form
 		String customerUserName = request.getParameter("uname");
-		String password = request.getParameter("psw");
-
-		out.print(customerUserName + "<br>");
+		String password = request.getParameter("psw");		
 
 		//Check whether we are already logged in
 		@SuppressWarnings({ "unchecked" })
 		HashMap<String, String> userSession = (HashMap<String, String>) session.getAttribute("userSession");
 
-		//Not logged in
+		//Not logged in, no userSession 
 		if (userSession == null) {
 			if (!(customerUserName == null || password == null)) {
 
@@ -92,30 +90,38 @@
 				String pw = "group11";
 				Connection con = null;
 
-				String sql = "SELECT CustomerID, FirstName, LastName, email FROM Customer WHERE password = ? AND CustomerUserName = ?";
+				String sql = "SELECT customerID, firstName, lastName, email FROM Customer WHERE password = ? AND customerUserName = ?";
 
 				try {
 
 					con = DriverManager.getConnection(url, uid, pw);
 					PreparedStatement prep = con.prepareStatement(sql);
 
-					prep.setString(1, customerUserName);
-					prep.setString(2, password);
+					prep.setString(1, password);
+					prep.setString(2, customerUserName);
 
 					ResultSet rs = prep.executeQuery();
 
-					while (rs.next()) {
+					if (rs.next()) {
 
-						/* userSession.put("CustomerID", rs.getString("CustomerID"));
+						//Add info from database to user session
+						userSession.put("CustomerID", rs.getString("CustomerID"));
 						userSession.put("FirstName", rs.getString("FirstName"));
 						userSession.put("LastName", rs.getString("LastName"));
 						userSession.put("email", rs.getString("email"));
-						System.out.println("Name: " + rs.getString("FirstName")); */
 						
-					}
-
-					//Update Session Variables					
-					session.setAttribute("userSession", userSession);
+						//Update Session Variables					
+						session.setAttribute("userSession", userSession);
+						
+						//Redirect back to homepage page
+						response.sendRedirect("shop.html");						
+						
+					}else{
+						
+						//Database query unsuccessful, don't create session and print error
+						session.removeAttribute("userSession");
+						out.print("<h1>Username Password combination invalid</h1>");
+					}					
 
 				} catch (SQLException ex) {
 					String fullClassName = ex.getStackTrace()[2].getClassName();
@@ -131,7 +137,7 @@
 
 			//Login Form Html
 			out.print(
-					"<form name=\"loginForm\" method=\"GET\" action=\"login.jsp\" onsubmit=\"return validateForm()\">");
+					"<form name=\"loginForm\" method=\"POST\" action=\"login.jsp\" onsubmit=\"return validateForm()\">");
 			out.print("<div class=\"imgcontainer\">");
 			out.print("</div>");
 			out.print("<div class=\"container\">");
@@ -148,9 +154,7 @@
 
 			//Already Logged in
 		} else {
-			out.print("<h1>Already Logged in as " + userSession.get("CustomerID") + "</h1>");
-			out.print(userSession.getOrDefault("FirstName", "No name "));
-			
+			out.print("<h1>Already Logged in as " + userSession.get("FirstName") + "</h1>");
 
 		}
 	%>

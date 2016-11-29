@@ -9,6 +9,8 @@
 <head>
 <title>Your Shopping Cart</title>
 <link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" href="images/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Abel" />
 </head>
 <body>
 

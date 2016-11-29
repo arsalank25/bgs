@@ -1,7 +1,8 @@
+drop table CartContains,Shipment, Cart ,WishList,Review ,Payment ,Product ,PST,Customer
 
 
 CREATE TABLE Customer (
-customerID 	int				 NOT NULL PRIMARY KEY,
+customerID 	int		IDENTITY(1,1)  PRIMARY KEY,
 customerUserName VARCHAR(20) NOT NULL,
 password 	VARCHAR(20) 	 NOT NULL,
 firstName 	VARCHAR(50) 	 NOT NULL,
@@ -17,7 +18,7 @@ accessLevel SMALLINT 	 	 NOT NULL
 
 
 
-CREATE TABLE PST(
+CREATE TABLE PST  (
 province		VARCHAR(2) 	NOT NULL,
 PST			INT,
 PRIMARY KEY (province)
@@ -75,17 +76,19 @@ CONSTRAINT fk_CustomerWishlist FOREIGN KEY (customerID) REFERENCES Customer(cust
 
 CREATE TABLE Cart(
 customerID		INT		NOT NULL,
-cID				INT		NOT NULL,
+cID				INT	IDENTITY(1,1)	NOT NULL,
 province		VARCHAR(2) 	NOT NULL,
 totalAmount		DEC(8,2),
 GST				INT,
 PRIMARY KEY(customerID ,cID),
+CONSTRAINT fk_cust
+FOREIGN KEY (customerID) REFERENCES Customer(customerID),
 CONSTRAINT fk_provincePST 
 FOREIGN KEY (province) REFERENCES PST(province)
 );
 
 CREATE TABLE Shipment(
-shipmentNo  		INT		 NOT NULL,
+shipmentNo  		INT	IDENTITY(1,1)	 NOT NULL,
 shipDate  		DATE,
 estimated		DATE,
 noteToService	VARCHAR(140),

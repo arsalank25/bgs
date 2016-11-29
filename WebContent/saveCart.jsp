@@ -25,7 +25,8 @@ int customerId = 0;
 boolean custumerIdNotANumber = false;
 
 // Get customer id
-String custId = request.getParameter("customerId");
+int customerId =  session.getAttribute("customerId");
+HashMap<String, ArrayList<Object>> userSession= (HashMap<String, ArrayList<Object>>) session.getAttribute("userSession"); // this is the code eric give me to add 
 @SuppressWarnings({"unchecked"})
 HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
 
@@ -42,7 +43,7 @@ else {
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 	 	con = DriverManager.getConnection(url,uid,pw);
 		
-		
+	 	
 		// Save order information to database
 		insert = "INSERT INTO Cart(customerId) VALUES (?)";		
 					

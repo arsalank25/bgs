@@ -15,6 +15,7 @@
 	<!-- Navigation menus -->
 	<!-- class="active" is used to change the colour of the tab of which page the user is on -->
 	<ul>		
+		<li style="float:left"><img src="images/BGSLogo.jpg" style="width:50px;height:50px;"></li>
 		<li style="float: right"><a href="login.jsp">Account <i class="fa fa-user-circle" aria-hidden="true"></i></a></li>
 		<li style="float: right"><a href="#about">WishList <i class="fa fa-heart" aria-hidden="true"></i></a></li>		
 		<li style="float: right"><a href="showcart.jsp">Cart <i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>

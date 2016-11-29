@@ -23,6 +23,7 @@ con = DriverManager.getConnection(url,uid,pw); %>
 
 
 <ul>		
+		<li style="float:left"><img src="images/BGSLogo.jpg" style="width:50px;height:50px;"></li>
 		<li style="float: right"><a href="login.jsp">Account <i class="fa fa-user-circle" aria-hidden="true"></i></a></li>
 		<li style="float: right"><a href="#about">WishList <i class="fa fa-heart" aria-hidden="true"></i></a></li>		
 		<li style="float: right"><a href="showcart.jsp">Cart <i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
@@ -47,7 +48,7 @@ con = DriverManager.getConnection(url,uid,pw); %>
 	<br>
 
 
-<h2 style="font-family:Raleway;"><span style="color:orange;">C</span>ontact Us</h2>
+<h2 style="font-family:Abel;"><span style="color:orange;">C</span>ontact Us</h2>
 <p>You will receive a response within 24 hours</p>
 
 <!--  Taylor's email is a placement holder  -->

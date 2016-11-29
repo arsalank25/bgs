@@ -42,7 +42,9 @@ else {
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 	 	con = DriverManager.getConnection(url,uid,pw);
 		
-		
+	 	sql = "SELECT MAX(cID) as lastcID FROM Cart WHERE customerId="+customerId
+	 	
+	 	
 		// Save order information to database
 		insert = "INSERT INTO Cart(customerId) VALUES (?)";		
 					

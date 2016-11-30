@@ -32,11 +32,12 @@
 <%	int productID = Integer.parseInt(request.getParameter("productID"));
 	System.out.println("ProductID: "+productID);
 	
+	Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 	Connection con = null;
 	String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_group11";
 	String uid = "group11";
 	String pw = "group11";
-	Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+	
 	con = DriverManager.getConnection(url, uid, pw);
 	ResultSet res = null ;
 	String color,material, brand, size ,sql,style,image = "";
@@ -57,7 +58,7 @@
 				
 				pstmt.setInt(1, productID);
 				
-				res =pstmt.executeQuery(sql);
+				res =pstmt.executeQuery();
 				
 				color = res.getString("color");
 				material = res.getString("material");

@@ -31,12 +31,16 @@
 <%	String productID = request.getParameter("productID");
 	System.out.println("ProductID: "+productID);
 	
+<<<<<<< HEAD
 	
+=======
+	Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+>>>>>>> 51f4a0270ed7d18a2040b49a96db92b687a6d967
 	Connection con = null;
 	String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_group11";
 	String uid = "group11";
 	String pw = "group11";
-	Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+	
 	con = DriverManager.getConnection(url, uid, pw);
 	ResultSet res = null ;
 	String color,material, brand, size ,sql,style,image = "";
@@ -71,7 +75,20 @@
 		// Make database connection
 				Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			 	con = DriverManager.getConnection(url,uid,pw);				
+<<<<<<< HEAD
 								
+=======
+				PreparedStatement pstmt;				
+				
+				sql = "SELECT * FROM Product WHERE pID= ?" ; // gets the product which was passed in so that the content can be retrieved
+				
+				pstmt = con.prepareStatement(sql);			
+				
+				pstmt.setInt(1, productID);
+				
+				
+				res =pstmt.executeQuery();
+>>>>>>> 51f4a0270ed7d18a2040b49a96db92b687a6d967
 				
 			
 				
@@ -210,8 +227,6 @@
 			<td></td>
 			<td align="center"><b style="color: orange"><strong>CA$ <%=price %></strong></b></td>
 		</tr>
-
-
 		<tr>
 			<td align="center"><a href="listprod.jsp?productName=jacket">Jacket</a>
 			<td></td>

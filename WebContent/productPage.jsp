@@ -88,9 +88,22 @@
 				
 				
 				res =pstmt.executeQuery();
+<<<<<<< HEAD
 >>>>>>> 51f4a0270ed7d18a2040b49a96db92b687a6d967
 				
 			
+=======
+				res.next();
+				color = res.getString("color");
+				material = res.getString("material");
+				brand= res.getString("brand");
+				size= res.getString("size");
+				style= res.getString("style");
+				image= res.getString("image");
+				weight= res.getInt("weight");
+				inventory= res.getInt("inventory");
+				price=res.getDouble("price");
+>>>>>>> ef398d0efce1ac335bd909e54af2900696b7c790
 				
 				
 				//No error, so log the user in

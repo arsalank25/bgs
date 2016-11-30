@@ -59,14 +59,14 @@
 				
 				
 				res =pstmt.executeQuery();
-				
+				res.next();
 				color = res.getString("color");
 				material = res.getString("material");
 				brand= res.getString("brand");
 				size= res.getString("size");
 				style= res.getString("style");
 				image= res.getString("image");
-				weight= res.getInt("image");
+				weight= res.getInt("weight");
 				inventory= res.getInt("inventory");
 				price=res.getDouble("price");
 				

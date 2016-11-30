@@ -185,8 +185,6 @@
 			<td></td>
 			<td align="center"><b style="color: orange"><strong>CA$[price]</strong></b></td>
 		</tr>
-
-
 		<tr>
 			<td align="center"><a href="listprod.jsp?productName=jacket">Jacket</a>
 			<td></td>

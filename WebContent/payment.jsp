@@ -44,22 +44,26 @@ function validateForm() {
 //Test link
 //http://localhost:8080/testing/payment.jsp?pname=My+Payment+&fname=Eric&lname=Nelson&street=1234&city=Kelowna&province=BC&postalcode=V1V+1V8&ccnum=34&sec=342&exp=0312
 
+//Test one of the variable to see if we are being POST'd anything
 String pname = request.getParameter("pname");
-String fname = request.getParameter("fname");
-String lname = request.getParameter("lname");
-String street = request.getParameter("street");
-String city = request.getParameter("city");
-String province = request.getParameter("province");
-String postalcode = request.getParameter("postalcode");
-String ccnum = request.getParameter("ccnum");
-int sec = Integer.parseInt(request.getParameter("sec"));
-int exp = Integer.parseInt(request.getParameter("exp"));
+
 
 //Get customer ID from session
 HashMap<String, String> userSession = (HashMap<String, String>) session.getAttribute("userSession");
 int customerId = (int) Integer.parseInt(userSession.get("CustomerID"));
 
 if(pname != null){
+	
+	
+	String fname = request.getParameter("fname");
+	String lname = request.getParameter("lname");
+	String street = request.getParameter("street");
+	String city = request.getParameter("city");
+	String province = request.getParameter("province");
+	String postalcode = request.getParameter("postalcode");
+	String ccnum = request.getParameter("ccnum");
+	int sec = Integer.parseInt(request.getParameter("sec"));
+	int exp = Integer.parseInt(request.getParameter("exp"));
 	
 	//We are going to save the payment to the database
 	Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");

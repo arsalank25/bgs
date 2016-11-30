@@ -60,7 +60,8 @@ String newqty = request.getParameter("newqty");
 
 // check if shopping cart is empty
 if (productList == null)
-{	out.println("<H1>Your shopping cart is empty!</H1>");
+{	
+	out.println("<H1>Your shopping cart is empty!</H1>");
 	productList = new HashMap();
 }
 else
@@ -129,9 +130,10 @@ else
 	out.println("<TR><TD COLSPAN=4 ALIGN=RIGHT><B>Order Total</B></TD>"
 			+"<TD ALIGN=RIGHT>"+currFormat.format(total)+"</TD></TR>");
 	out.println("</TABLE>");
-	//give user option to check out
-	
-	out.println("<H2><A HREF=\"checkout.jsp\">Check Out</A></H2>");
+	//Only allow checkout if logged in, and save cart before going to checkout page
+	if(userSession != null){
+		out.println("<H2><A HREF=\"saveCart.jsp?checkingout=true\">Check Out</A></H2>");
+	}
 }
 // set the shopping cart
 session.setAttribute("productList", productList);
@@ -140,7 +142,7 @@ session.setAttribute("productList", productList);
 if(userSession != null){
 	out.print("<h4><a href=\"saveCart.jsp\">Save Cart</a></h>");
 }else{
-	out.print("<h4><a href=\"login.jsp\">Please Login to save cart</a></h>");
+	out.print("<h4><a href=\"login.jsp\">Please create account to save cart</a></h>");
 }
 
 %>

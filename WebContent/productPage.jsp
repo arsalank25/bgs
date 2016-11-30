@@ -9,27 +9,54 @@
 	href="images/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css"
 	href="//fonts.googleapis.com/css?family=Abel" />
-<script>
-	function validateForm() {
-		var x = document.forms["loginForm"]["uname"].value;
-		if (x == "") {
-			alert("Please enter your username");
-			return false;
-		}
 
-		var y = document.forms["loginForm"]["psw"].value;
-		if (y == "") {
-			alert("Please enter your password");
-			return false;
-		}
-	}
-</script>
 <title>Product Page</title>
 </head>
+			
+				
+				
+				<body>
+	<!-- Navigation menus -->
+	<!-- class="active" is used to change the colour of the tab of which page the user is on -->
 
+	<ul>
+		<li style="float: left"><img src="images/BGSLogo.jpg"
+			style="width: 50px; height: 50px;"></li>
+		<li style="float: right"><a class="active" href="login.jsp">Account
+				<i class="fa fa-user-circle" aria-hidden="true"></i>
+		</a></li>
+		<li style="float: right"><a href="#about">WishList <i
+				class="fa fa-heart" aria-hidden="true"></i></a></li>
+		<li style="float: right"><a href="showcart.jsp">Cart <i
+				class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
 
+		<li><a href="shop.html">Home</a></li>
+		<li class="dropdown"><a href="listprod.jsp" class="dropbtn">Shop</a>
+			<div class="dropdown-content">
+				<a href="TurtleNeck.jsp">Turtle Neck</a> <a href="T-Shirt.jsp">T-Shirt</a>
+			</div></li>
+		<li><a href="contact.jsp">Contact</a></li>
+		<li style="float: left";>
+			<div style="margin-left: auto; margin-right: auto; width: 50%;">
+				<form align="center" method="get" action="listprod.jsp">
+					<input type="text" name="productName" size="50"
+						placeholder="Search.. Example: Red XL Wool"> <input
+						type="submit" value="Submit"> <input type="submit"
+						value="Clear Searches">
+				</form>
+			</div>
+		</li>
+	</ul>
 
-<%	String productID = request.getParameter("productID");
+	<br>
+	<!--  END OF NAVIGATION MENU -->
+	
+	<div></div>
+
+<%	
+	
+
+	String productID = request.getParameter("productID");
 	System.out.println("ProductID: "+productID);
 	
 	Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -91,9 +118,9 @@
 				ResultSet resUser =pstmt.executeQuery();//
 				
 				resUser.next();
-				String uName = resUser.getString(customerUserName);  // Use this User name for review
-				String theComment = res.getString(Comment); // the text inside a review
-				int stars = res.getInt(Stars);  // the number of stars a product got
+				String uName = resUser.getString("customerUserName");  // Use this User name for review
+				String theComment = res.getString("Comment"); // the text inside a review
+				int stars = res.getInt("Stars");  // the number of stars a product got
 				
 						
 				java.util.Date date = new java.util.Date(); // gets back dateAndTime which tell when review was added 
@@ -102,128 +129,14 @@
 					
 					//-------------------- please add your review code here so that it runs a few times to generate output for all review in review table taht are associated to one product 
 					
-					
+				
 					
 					//-----------------
 				}
+				out.print("<br><br><div style=\"background-color: grey; \"><h2>"+style+"</h2></div>");	
+				out.print("<table><tr><img src=" + img + " style=\"width: 150px; height: 100px;\"></td><tr></table>");
 				
-
-
-				
-				
-				//No error, so log the user in
-				out.print("<h1>Account Created, please login!<h1>");
-				//Login Form Html
-				out.print(
-						"<form name=\"loginForm\" method=\"POST\" action=\"login.jsp\" onsubmit=\"return validateForm()\">");
-				out.print("<div class=\"imgcontainer\">");
-				out.print("</div>");
-				out.print("<div class=\"container\">");
-				out.print("<label><b>Username</b></label>");
-				out.print("<input type=\"text\" placeholder=\"Enter Username\" name=\"uname\" required>");
-				out.print("<label><b>Password</b></label>");
-				out.print("<input type=\"password\" placeholder=\"Enter Password\" name=\"psw\" required>");
-				out.print("<button type=\"submit\">Login</button>");
-				out.print("</div>");
-				out.print("</form>");
-				out.print("<form name=\"signupForm\" action=\"SignUp.html\">");
-				out.print("<button class=\"cancelbtn\">Not a member?</button>");
-				out.print("</form>");
-				
-				%>
-				
-				
-				
-				<body>
-	<!-- Navigation menus -->
-	<!-- class="active" is used to change the colour of the tab of which page the user is on -->
-
-	<ul>
-		<li style="float: left"><img src="images/BGSLogo.jpg"
-			style="width: 50px; height: 50px;"></li>
-		<li style="float: right"><a class="active" href="login.jsp">Account
-				<i class="fa fa-user-circle" aria-hidden="true"></i>
-		</a></li>
-		<li style="float: right"><a href="#about">WishList <i
-				class="fa fa-heart" aria-hidden="true"></i></a></li>
-		<li style="float: right"><a href="showcart.jsp">Cart <i
-				class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
-
-		<li><a href="shop.html">Home</a></li>
-		<li class="dropdown"><a href="listprod.jsp" class="dropbtn">Shop</a>
-			<div class="dropdown-content">
-				<a href="TurtleNeck.jsp">Turtle Neck</a> <a href="T-Shirt.jsp">T-Shirt</a>
-			</div></li>
-		<li><a href="contact.jsp">Contact</a></li>
-		<li style="float: left";>
-			<div style="margin-left: auto; margin-right: auto; width: 50%;">
-				<form align="center" method="get" action="listprod.jsp">
-					<input type="text" name="productName" size="50"
-						placeholder="Search.. Example: Red XL Wool"> <input
-						type="submit" value="Submit"> <input type="submit"
-						value="Clear Searches">
-				</form>
-			</div>
-		</li>
-	</ul>
-
-	<br>
-	<!--  END OF NAVIGATION MENU -->
-	
-	
-	<table id="productPageTable" style="width: 100%">
-		<colgroup>
-			<col style="width: 20%" />
-			<col style="width: 33%" />
-			<col style="width: 33%" />
-		</colgroup>
-
-
-		<!--  TITLES -->
-		<tr>
-			<th style="font-family: Abel;">Categories</th>
-			<th>image[placeholder]</th>
-			<th>Details [placeholder]
-		</tr>
-		<!-- END OF TITLES -->
-		<tr>
-			<td><br></td>
-		</tr>
-
-		<!--  CONTENT -->
-
-		<tr>
-			<td align="center" style="text-decoration: none"><a href="listprod.jsp?productName=turtle+neck">Turtle Neck</a></td>
-			<td align="center"><img src=<%=img%>></td>
-			<td align="center"><%=style%><br>
-			<p>Web ID: <%=productID%></p></td>
-		</tr>
-
-		<tr>
-			<td align="center"><a href="listprod.jsp?productName=t-shirt">T-Shirt</a></td>
-			<td></td>
-			<td align="center"><b style="color: orange"><strong>CA$ <%=price %></strong></b></td>
-		</tr>
-		<tr>
-			<td align="center"><a href="listprod.jsp?productName=jacket">Jacket</a>
-			<td></td>
-
-			<td align="center"><br><b>Availability: </b> <%=inventory %><br> <b>Color:</b>
-				<%= color%><br> <b>Size:</b> <%=size %></td>
-
-
-			</td>
-		</tr>
-
-
-		<tr>
-			<td align="center"><a href="listprod.jsp?productName=pjs">Pjs</a></td>
-		</tr>
-
-		<!--  END OF CONTENT -->
-	</table>
-	<% 
-				
+					
 		
 	}
 	catch(SQLException ex){	

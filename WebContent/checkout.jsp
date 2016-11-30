@@ -122,7 +122,7 @@ else
 			+"<td align=\"right\">"+currFormat.format(total)+"</td></tr></table>");
 	
 	out.println("<h2><a href=\"showcart.jsp\">Back to cart</a></h2>");
-	out.println("<h2><a href=\"payment.jsp\">Pay Now!</a></h2>");
+	out.println("<h2><a href=\"payment.html\">Pay Now!</a></h2>");
 	
 }
 

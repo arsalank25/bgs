@@ -17,10 +17,9 @@
 
 <ul>
 <li style="float:left"><img src="images/BGSLogo.jpg" style="width:50px;height:50px;"></li>
-<li style="float:right"><a  href="login.jsp">Account</a></li>
-<li style="float:right"><a  href="#about">WishList</a></li>
-<li style="float:right"><a href="checkout.jsp">Check Out</a></li>
-<li style="float:right"><a class="active" href="showcart.jsp">Cart</a></li>
+		<li style="float: right"><a href="login.jsp">Account <i class="fa fa-user-circle" aria-hidden="true"></i></a></li>
+		<li style="float: right"><a href="#about">WishList <i class="fa fa-heart" aria-hidden="true"></i></a></li>		
+		<li style="float: right"><a href="showcart.jsp">Cart <i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
 
  <li><a href="shop.html">Home</a></li>
  <li class="dropdown">

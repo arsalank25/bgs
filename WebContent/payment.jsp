@@ -38,10 +38,11 @@ function validateForm() {
 
 
 <body>
+<div style="background-color: orange; "><h2>Choose existing payment method</h2></div>
+
 
 <%
-
-//Test link
+	//Test link
 //http://localhost:8080/testing/payment.jsp?pname=My+Payment+&fname=Eric&lname=Nelson&street=1234&city=Kelowna&province=BC&postalcode=V1V+1V8&ccnum=34&sec=342&exp=0312
 
 //Test one of the variable to see if we are being POST'd anything
@@ -51,6 +52,15 @@ String pname = request.getParameter("pname");
 //Get customer ID from session
 HashMap<String, String> userSession = (HashMap<String, String>) session.getAttribute("userSession");
 int customerId = (int) Integer.parseInt(userSession.get("CustomerID"));
+
+//We are going to save the payment to the database
+	Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+	Connection con = null;
+	String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_group11";
+	String uid = "group11";
+	String pw = "group11";
+	String sql;
+
 
 if(pname != null){
 	
@@ -65,17 +75,11 @@ if(pname != null){
 	int sec = Integer.parseInt(request.getParameter("sec"));
 	int exp = Integer.parseInt(request.getParameter("exp"));
 	
-	//We are going to save the payment to the database
-	Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-	Connection con = null;
-	String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_group11";
-	String uid = "group11";
-	String pw = "group11";
-	String sql;
+	
 	
 	try{
 		sql = "INSERT INTO Payment (customerID,paymentName,firstName,lastName,street,city"
-				+",province,postalCode,cardNo,cardSin,cardExpeiryDate)VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+		+",province,postalCode,cardNo,cardSin,cardExpeiryDate)VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 		
 		con = DriverManager.getConnection(url, uid, pw);
 		PreparedStatement prep = con.prepareStatement(sql);		
@@ -94,6 +98,9 @@ if(pname != null){
 		
 		prep.executeUpdate();	
 		
+		//Redirect here to see changes
+		response.sendRedirect("payment.jsp");
+		
 	} catch (SQLException ex) {
 		String fullClassName = ex.getStackTrace()[2].getClassName();
 		String className = fullClassName.substring(fullClassName.lastIndexOf(".") + 1);
@@ -103,22 +110,35 @@ if(pname != null){
 	} 
 	
 	
-}
+	} else {
+		//Display the options if there are any
 
+		try {
+			sql = "SELECT paymentName FROM Payment WHERE customerID = ?";
 
+			con = DriverManager.getConnection(url, uid, pw);
+			PreparedStatement prep = con.prepareStatement(sql);
+			prep.setInt(1, customerId);
+			ResultSet rs = prep.executeQuery();	
+			
+			while(rs.next()){
+				out.print("<a href=\"pay.jsp\"><h2>"+rs.getString("paymentName")+"</h2></a>");
+			}
 
+		} catch (SQLException ex) {
+			String fullClassName = ex.getStackTrace()[2].getClassName();
+			String className = fullClassName.substring(fullClassName.lastIndexOf(".") + 1);
+			String methodName = ex.getStackTrace()[2].getMethodName();
+			int lineNumber = ex.getStackTrace()[2].getLineNumber();
+			System.err.println(className + "." + methodName + "():" + lineNumber + "Message: " + ex);
+		}
 
-
-
-
+	}
 %>
-
-
-
 
 <!-- onsubmit="return validateForm()" -->
 <div style="background-color: orange; "><h2>Add new Payment Information</h2></div>
-<form name="signupForm" method="GET" action="payment.jsp"  autocomplete="on">
+<form name="paymentForm" method="POST" action="payment.jsp"  autocomplete="on">
   <div class="imgcontainer">
 <!--     <img src="images/BGSLogo.jpg" alt="Avatar" class="avatar"> -->
   </div>

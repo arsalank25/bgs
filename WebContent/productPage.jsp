@@ -57,6 +57,7 @@
 				
 				pstmt.setInt(1, productID);
 				
+				
 				res =pstmt.executeQuery();
 				
 				color = res.getString("color");

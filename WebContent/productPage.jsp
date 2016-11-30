@@ -27,6 +27,8 @@
 <title>Product Page</title>
 </head>
 
+
+
 <%	int productID = Integer.parseInt(request.getParameter("productID"));
 	System.out.println("ProductID: "+productID);
 	

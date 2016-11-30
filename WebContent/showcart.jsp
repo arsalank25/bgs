@@ -138,7 +138,7 @@ session.setAttribute("productList", productList);
 // give the customer the option to add more items to their shopping cart
 
 if(userSession != null){
-	out.print("<h4><a href=\"saveCart2.jsp\">Save Cart</a></h>");
+	out.print("<h4><a href=\"saveCart.jsp\">Save Cart</a></h>");
 }else{
 	out.print("<h4><a href=\"login.jsp\">Please Login to save cart</a></h>");
 }

@@ -86,7 +86,7 @@ else
 
 	out.println("<h1>Checkout</h1>");
 	out.print("<table><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
-	out.println("<th>Price</th><th>Subtotal</th></tr>");
+	out.println("<th>Price</th><th>Product Subtotal</th></tr>");
 
 	double total =0;
 	Iterator<Map.Entry<String, ArrayList<Object>>> iterator = productList.entrySet().iterator();
@@ -121,8 +121,9 @@ else
 	out.println("<tr><td><b>Order Total</b></td>"
 			+"<td align=\"right\">"+currFormat.format(total)+"</td></tr></table>");
 	
-
+	out.println("<h2><a href=\"showcart.jsp\">Back to cart</a></h2>");
 	out.println("<h2><a href=\"payment.jsp\">Pay Now!</a></h2>");
+	
 }
 
 %>

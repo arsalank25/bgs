@@ -114,8 +114,8 @@
 						//Update Session Variables					
 						session.setAttribute("userSession", userSession);
 						
-						//Redirect back to homepage page
-						response.sendRedirect("shop.html");						
+						//Load users existing cart
+						response.sendRedirect("loadCart.jsp");						
 						
 					}else{
 						

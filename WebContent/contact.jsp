@@ -9,14 +9,6 @@
 <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Abel" />
 <title>Contact Us</title>
 </head>
-
-<% Connection con = null;
-String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_group11";
-String uid = "group11";
-String pw = "group11";
-Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver"); 
-con = DriverManager.getConnection(url,uid,pw); %>
-
 <body>
 <!-- Navigation menus -->
 <!-- class="active" is used to change the colour of the tab of which page the user is on -->
@@ -44,7 +36,6 @@ con = DriverManager.getConnection(url,uid,pw); %>
 		</div>
 	</li>
 	</ul>
-
 	<br>
 
 

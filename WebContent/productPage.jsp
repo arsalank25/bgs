@@ -27,9 +27,9 @@
 <title>Product Page</title>
 </head>
 
-<%
 
-	String productID = request.getParameter("productID");
+
+<%	int productID = Integer.parseInt(request.getParameter("productID"));
 	System.out.println("ProductID: "+productID);
 	
 	Connection con = null;
@@ -38,6 +38,81 @@
 	String pw = "group11";
 	Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 	con = DriverManager.getConnection(url, uid, pw);
+	ResultSet res = null ;
+	String color,material, brand, size ,sql,style,image = "";
+	int weight ,inventory=0;
+	double price = 0.0;
+	
+	
+	try{
+		// Make database connection
+				Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+			 	con = DriverManager.getConnection(url,uid,pw);				
+				PreparedStatement pstmt;				
+				
+				//customerID auto increments
+				sql = "SELECT * FROM Product WHERE pID=?" ;//by defult the access level will be zero 
+				
+				pstmt = con.prepareStatement(sql);			
+				
+				pstmt.setInt(1, productID);
+				
+				res =pstmt.executeQuery(sql);
+				
+				color = res.getString("color");
+				material = res.getString("material");
+				brand= res.getString("brand");
+				size= res.getString("size");
+				style= res.getString("style");
+				image= res.getString("image");
+				weight= res.getInt("image");
+				inventory= res.getInt("inventory");
+				price=res.getDouble("price");
+				
+				
+				//No error, so log the user in
+				out.print("<h1>Account Created, please login!<h1>");
+				//Login Form Html
+				out.print(
+						"<form name=\"loginForm\" method=\"POST\" action=\"login.jsp\" onsubmit=\"return validateForm()\">");
+				out.print("<div class=\"imgcontainer\">");
+				out.print("</div>");
+				out.print("<div class=\"container\">");
+				out.print("<label><b>Username</b></label>");
+				out.print("<input type=\"text\" placeholder=\"Enter Username\" name=\"uname\" required>");
+				out.print("<label><b>Password</b></label>");
+				out.print("<input type=\"password\" placeholder=\"Enter Password\" name=\"psw\" required>");
+				out.print("<button type=\"submit\">Login</button>");
+				out.print("</div>");
+				out.print("</form>");
+				out.print("<form name=\"signupForm\" action=\"SignUp.html\">");
+				out.print("<button class=\"cancelbtn\">Not a member?</button>");
+				out.print("</form>");
+				
+				
+		
+	}
+	catch(SQLException ex){	
+		String fullClassName = ex.getStackTrace()[2].getClassName();
+	    String className = fullClassName.substring(fullClassName.lastIndexOf(".") + 1);
+	    String methodName = ex.getStackTrace()[2].getMethodName();
+	    int lineNumber = ex.getStackTrace()[2].getLineNumber();	
+	    out.println(className + "." + methodName + "():" + lineNumber + "Message: " + ex);
+	}catch(Exception e){
+		out.print(e.toString());
+	}
+	finally {
+		if(con != null){
+			try{
+				con.close();
+			}catch(SQLException ex){	
+				out.println(ex);
+			}finally{
+				
+		}
+	}
+	
+}
 %>
 
 

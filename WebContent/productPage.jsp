@@ -28,14 +28,11 @@
 </head>
 <body>
 
-<%	String productID = request.getParameter("productID");
+<%	int productID = Integer.parseInt(request.getParameter("productID"));
 	System.out.println("ProductID: "+productID);
-	
-<<<<<<< HEAD
-	
-=======
+
 	Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
->>>>>>> 51f4a0270ed7d18a2040b49a96db92b687a6d967
+
 	Connection con = null;
 	String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_group11";
 	String uid = "group11";
@@ -54,7 +51,7 @@
 	
 	pstmt = con.prepareStatement(sql);			
 	
-	pstmt.setString(1, productID);
+	pstmt.setInt(1, productID);
 	
 	res = pstmt.executeQuery();
 	
@@ -75,10 +72,7 @@
 		// Make database connection
 				Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			 	con = DriverManager.getConnection(url,uid,pw);				
-<<<<<<< HEAD
-								
-=======
-				PreparedStatement pstmt;				
+				
 				
 				sql = "SELECT * FROM Product WHERE pID= ?" ; // gets the product which was passed in so that the content can be retrieved
 				
@@ -88,11 +82,7 @@
 				
 				
 				res =pstmt.executeQuery();
-<<<<<<< HEAD
->>>>>>> 51f4a0270ed7d18a2040b49a96db92b687a6d967
-				
-			
-=======
+
 				res.next();
 				color = res.getString("color");
 				material = res.getString("material");
@@ -103,7 +93,7 @@
 				weight= res.getInt("weight");
 				inventory= res.getInt("inventory");
 				price=res.getDouble("price");
->>>>>>> ef398d0efce1ac335bd909e54af2900696b7c790
+
 				
 				
 				//No error, so log the user in

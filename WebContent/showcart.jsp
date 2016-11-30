@@ -94,7 +94,7 @@ else
 		out.println("<H1>Your Shopping Cart</H1>");
 	}
 	out.print("<TABLE><TR><TH>Product Id</TH><TH>Product Name</TH><TH>Quantity</TH>");
-	out.println("<TH>Price</TH><TH>Subtotal</TH><TH></TH><TH></TH></TR>");
+	out.println("<TH>Price</TH><TH style=\"width:150px\">Subtotal</TH><TH></TH><TH></TH></TR>");
 
 	int count = 0;
 	double total =0;
@@ -140,13 +140,13 @@ session.setAttribute("productList", productList);
 // give the customer the option to add more items to their shopping cart
 
 if(userSession != null){
-	out.print("<h4><a href=\"saveCart.jsp\">Save Cart</a></h>");
+	out.print("<h2><a href=\"saveCart.jsp\">Save Cart</a></h2>");
 }else{
-	out.print("<h4><a href=\"login.jsp\">Please create account to save cart</a></h>");
+	out.print("<h2><a href=\"login.jsp\">Please create account to save cart</a></h2>");
 }
 
 %>
-<h4 style="font-family:abel;"><a href="listprod.jsp">Continue Shopping</a></h2>
+<h2 style="font-family:abel;"><a href="listprod.jsp">Continue Shopping</a></h2>
 </body>
 </html> 
 

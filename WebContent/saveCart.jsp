@@ -23,6 +23,8 @@ writes in new products
 	String uid = "group11";
 	String pw = "group11";
 	Connection con = null;
+	
+	boolean checkingout = Boolean.parseBoolean(request.getParameter("checkingout"));
 
 	//Get Product and user sessions
 	@SuppressWarnings({ "unchecked" })
@@ -56,6 +58,10 @@ writes in new products
 					//There is an active cart, so we drop its cartcontents and replace with cart session info
 					cartID = rs.getInt("cartID");
 					System.out.println("Active Cart is: " + cartID);
+					
+					//Add active cart ID to usersession
+					userSession.put("cartID", String.valueOf(cartID));
+					session.setAttribute("userSession", userSession);
 					
 					//Delete all rows from cart contains with current customer ID
 					sql = "DELETE FROM CartContains WHERE cID= ?";
@@ -112,7 +118,11 @@ writes in new products
 		prep.setInt(2, cartID);	
 		prep.executeUpdate();
 		
-		response.sendRedirect("showcart.jsp");
+		if(checkingout){
+			response.sendRedirect("checkout.jsp");
+		}else{
+			response.sendRedirect("showcart.jsp");
+		}
 			
 
 		} catch (SQLException ex) {

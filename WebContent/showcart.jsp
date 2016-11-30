@@ -17,10 +17,9 @@
 
 <ul>
 <li style="float:left"><img src="images/BGSLogo.jpg" style="width:50px;height:50px;"></li>
-<li style="float:right"><a  href="login.jsp">Account</a></li>
-<li style="float:right"><a  href="#about">WishList</a></li>
-<li style="float:right"><a href="checkout.jsp">Check Out</a></li>
-<li style="float:right"><a class="active" href="showcart.jsp">Cart</a></li>
+		<li style="float: right"><a href="login.jsp">Account <i class="fa fa-user-circle" aria-hidden="true"></i></a></li>
+		<li style="float: right"><a href="#about">WishList <i class="fa fa-heart" aria-hidden="true"></i></a></li>		
+		<li style="float: right"><a href="showcart.jsp">Cart <i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
 
  <li><a href="shop.html">Home</a></li>
  <li class="dropdown">
@@ -60,11 +59,12 @@ String newqty = request.getParameter("newqty");
 
 // check if shopping cart is empty
 if (productList == null)
-{	out.println("<H1>Your shopping cart is empty!</H1>");
-	productList = new HashMap();
+{	
+	out.println("<H1>Your shopping cart is empty!</H1>");	
 }
 else
-{
+{	
+	
 	NumberFormat currFormat = NumberFormat.getCurrencyInstance();
 	
 	// if id not null, then user is trying to remove that item from the shopping cart
@@ -93,7 +93,7 @@ else
 		out.println("<H1>Your Shopping Cart</H1>");
 	}
 	out.print("<TABLE><TR><TH>Product Id</TH><TH>Product Name</TH><TH>Quantity</TH>");
-	out.println("<TH>Price</TH><TH>Subtotal</TH><TH></TH><TH></TH></TR>");
+	out.println("<TH>Price</TH><TH style=\"width:150px\">Subtotal</TH><TH></TH><TH></TH></TR>");
 
 	int count = 0;
 	double total =0;
@@ -129,22 +129,34 @@ else
 	out.println("<TR><TD COLSPAN=4 ALIGN=RIGHT><B>Order Total</B></TD>"
 			+"<TD ALIGN=RIGHT>"+currFormat.format(total)+"</TD></TR>");
 	out.println("</TABLE>");
-	//give user option to check out
-	
-	out.println("<H2><A HREF=\"checkout.jsp\">Check Out</A></H2>");
+	//Only allow checkout if logged in, and save cart before going to checkout page
+	if(userSession != null){
+		out.println("<H2><A HREF=\"saveCart.jsp?checkingout=true\">Check Out</A></H2>");
+	}
 }
 // set the shopping cart
 session.setAttribute("productList", productList);
 // give the customer the option to add more items to their shopping cart
 
-if(userSession != null){
-	out.print("<h4><a href=\"saveCart.jsp\">Save Cart</a></h>");
+//If the cart is empty get rid of the product session
+if(productList != null){
+	if(productList.size()<1){
+		session.removeAttribute("productList");
+		response.sendRedirect("showcart.jsp");
+	}
+}
+
+if(userSession != null && productList != null){
+	out.print("<h2><a href=\"saveCart.jsp\">Save Cart</a></h2>");
+	
+}else if (productList == null){
+	
 }else{
-	out.print("<h4><a href=\"login.jsp\">Please Login to save cart</a></h>");
+	out.print("<h2><a href=\"login.jsp\">Please create account to save cart</a></h2>");
 }
 
 %>
-<h4 style="font-family:abel;"><a href="listprod.jsp">Continue Shopping</a></h2>
+<h2 style="font-family:abel;"><a href="listprod.jsp">Continue Shopping</a></h2>
 </body>
 </html> 
 

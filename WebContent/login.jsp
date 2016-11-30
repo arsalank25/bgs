@@ -114,8 +114,8 @@
 						//Update Session Variables					
 						session.setAttribute("userSession", userSession);
 						
-						//Redirect back to homepage page
-						response.sendRedirect("shop.html");						
+						//Load users existing cart
+						response.sendRedirect("loadCart.jsp");						
 						
 					}else{
 						
@@ -150,12 +150,12 @@
 			out.print("</div>");
 			out.print("</form>");
 			out.print("<form name=\"signupForm\" action=\"SignUp.html\">");
-			out.print("<button class=\"cancelbtn\">Not a member?</button>");
+			out.print("<div id=\"member\"><button  class=\"cancelbtn\">Not a member?</button></div>");
 			out.print("</form>");
 
 			//Already Logged in
 		} else {
-			out.print("<h1>Already Logged in as " + userSession.get("FirstName") + "</h1>");
+			out.print("<h1 align=\"center\" >Already Logged in as " + userSession.get("FirstName") + "</h1>");
 
 		}
 	%>

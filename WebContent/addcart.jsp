@@ -5,6 +5,7 @@
 @SuppressWarnings({"unchecked"})
 HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
 
+
 if (productList == null)
 {	// No products currently in list.  Create a list.
 	productList = new HashMap<String, ArrayList<Object>>();
@@ -35,4 +36,4 @@ else
 
 session.setAttribute("productList", productList);
 %>
-<jsp:forward page="showcart.jsp" />
+<jsp:forward page="listprod.jsp" />

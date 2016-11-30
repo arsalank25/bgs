@@ -59,6 +59,10 @@ writes in new products
 					cartID = rs.getInt("cartID");
 					System.out.println("Active Cart is: " + cartID);
 					
+					//Add active cart ID to usersession
+					userSession.put("cartID", String.valueOf(cartID));
+					session.setAttribute("userSession", userSession);
+					
 					//Delete all rows from cart contains with current customer ID
 					sql = "DELETE FROM CartContains WHERE cID= ?";
 					prep = con.prepareStatement(sql);

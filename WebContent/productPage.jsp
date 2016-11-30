@@ -91,7 +91,7 @@
 				ResultSet resUser =pstmt.executeQuery();//
 				
 				resUser.next();
-				String uName = resUser.getString("customerUserName");  // Use this User name for review
+				String uName = resUser.getString(customerUserName);  // Use this User name for review
 				String theComment = res.getString(Comment); // the text inside a review
 				int stars = res.getInt(Stars);  // the number of stars a product got
 				

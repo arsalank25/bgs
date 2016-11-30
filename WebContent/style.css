@@ -6,6 +6,12 @@ ul {
     background-color: white;
 }
 
+#yt {    
+	display:block;
+    margin: 0 auto;
+    background-color: #777;
+}
+
 .divider{
 	background-color: #C0C0C0;
 }
@@ -198,3 +204,4 @@ a:link {
     text-decoration: none;
     font-family: Abel;
 }
+

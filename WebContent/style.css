@@ -14,6 +14,14 @@ th{
 	background-color: orange;
 }
 
+td{
+	float:center;
+	font-family:Abel;
+	font-size: 20px
+	
+}
+
+
 
 li {
     float: left;
@@ -135,6 +143,7 @@ pre {
 }
 
 
+
 <!--- forms styles -->
 
 form {
@@ -180,4 +189,12 @@ img.avatar {
 
 .container {
     padding: 16px;
+}
+
+<!-- Links -->
+a:link {
+    color: Black;
+    background-color: transparent;
+    text-decoration: none;
+    font-family: Abel;
 }

@@ -6,6 +6,12 @@ ul {
     background-color: white;
 }
 
+#member{
+	display:block;
+	text-align:center;
+	margin:auto;
+}
+
 #yt {    
 	display:block;
     margin: 0 auto;

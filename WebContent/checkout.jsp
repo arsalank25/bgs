@@ -1,5 +1,6 @@
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.sql.*"%>
+<%@ page import="java.util.*"%>
 <%@ page import="java.util.Iterator" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.text.NumberFormat" %>
@@ -85,7 +86,7 @@ else
 	NumberFormat currFormat = NumberFormat.getCurrencyInstance();
 
 	out.println("<h1>Checkout</h1>");
-	out.print("<table><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
+	out.print("<table cellpadding=\"5\"><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
 	out.println("<th>Price</th><th>Product Subtotal</th></tr>");
 
 	double total =0;
@@ -106,13 +107,17 @@ else
 		total = total +pr*qty;
 	}
 	
+	
+	
 	gst = total*gst;
 	pst = total*pst;
 	double subtotal = total;
 	total = total +gst+pst;
 	out.println("</table><br><br>");
 	
-	out.println("<table><tr><td><b>Subtotal</b></td>"
+	
+	// Payment/cost info
+	out.println("<table cellpadding=\"5\"><tr><td><b>Subtotal</b></td>"
 			+"<td style=\"width:125px\" align=\"right\">"+currFormat.format(subtotal)+"</td></tr>");
 	out.println("<tr><td><b>GST</b></td>"
 			+"<td style=\"width:125px\" align=\"right\">"+currFormat.format(gst)+"</td></tr>");
@@ -121,8 +126,38 @@ else
 	out.println("<tr><td><b>Order Total</b></td>"
 			+"<td align=\"right\">"+currFormat.format(total)+"</td></tr></table>");
 	
+	
+	//Shipment tracking info
+	
+	java.util.Date date = new java.util.Date(); //Get date
+	Calendar cal = Calendar.getInstance();
+	cal.setTime(date);
+	cal.add(Calendar.DATE, 10); // add 10 days
+	 
+	java.util.Date dateArv = cal.getTime();
+	
+	out.print("<br><br><div style=\"background-color: grey; \"><h2>Shipment Tracking</h2></div>");	
+		
+	
+	out.print("<table cellpadding=\"7\"><tr><th>Shipment Date</th><th>Estimated Delivery</th>");
+	out.print("<tr><td>" +date.toString()+"</td>");
+	out.print("<td>" +dateArv.toString()+"<td></tr>");	
+	out.print("</table>");
+		
+	
+	
+	out.print("<h2>Note to Service</h2>");
+	out.print("<textarea form=\"usrform\" maxlength=\"135\" rows=\"4\" cols=\"50\"></textarea>");
+	
+	out.print("<br><h2>Note on package</h2>");
+	out.print("<textarea form=\"usrform\" maxlength=\"135\" rows=\"4\" cols=\"50\"></textarea>");
+		
+	
 	out.println("<h2><a href=\"showcart.jsp\">Back to cart</a></h2>");
-	out.println("<h2><a href=\"payment.html\">Pay Now!</a></h2>");
+	
+	out.print("<form name=\"signupForm\" method=\"GET\" action=\"payment.jsp\"  autocomplete=\"on\">");
+	out.print("<button type=\"submit\"><h2 style = \"color:black;\"><b>Pay Now!</b></h2></button>");	
+	
 	
 }
 

@@ -36,9 +36,9 @@ function validateForm() {
 <!-- class="active" is used to change the colour of the tab of which page the user is on -->
 
 
-<div style="background-color: orange; overflow: hidden;"><h1>  Payment Information</h1></div>
-<!-- onsubmit="return validateForm()" -->
 
+<!-- onsubmit="return validateForm()" -->
+<div style="background-color: orange; "><h2>Add new Payment Information</h2></div>
 <form name="signupForm" method="POST" action="payment.jsp"  autocomplete="on">
   <div class="imgcontainer">
 <!--     <img src="images/BGSLogo.jpg" alt="Avatar" class="avatar"> -->

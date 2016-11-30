@@ -29,38 +29,42 @@
 
 
 
-<%	int productID = Integer.parseInt(request.getParameter("productID"));
+<%	String productID = request.getParameter("productID");
 	System.out.println("ProductID: "+productID);
 	
+	Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 	Connection con = null;
 	String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_group11";
 	String uid = "group11";
 	String pw = "group11";
-	Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+	
 	con = DriverManager.getConnection(url, uid, pw);
 	ResultSet res = null ;
 	String color,material, brand, size ,sql,style,image = "";
 	int weight ,inventory=0;
 	double price = 0.0;
+	String img = "images/product" + productID + ".jpg";
+	
+
+ 	
+	
 	
 	
 	try{
 		// Make database connection
 				Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			 	con = DriverManager.getConnection(url,uid,pw);				
-				PreparedStatement pstmt;				
-				
-				//customerID auto increments
-				sql = "SELECT * FROM Product WHERE pID=?" ;//by defult the access level will be zero 
+					
+			 	PreparedStatement pstmt;
+				sql = "SELECT * FROM Product WHERE pID= ?" ; // gets the product which was passed in so that the content can be retrieved
 				
 				pstmt = con.prepareStatement(sql);			
 				
-				pstmt.setInt(1, productID);
+				pstmt.setString(1, productID);
+				
 				
 				res =pstmt.executeQuery();
-				
 				res.next();
-				
 				color = res.getString("color");
 				material = res.getString("material");
 				brand= res.getString("brand");
@@ -69,7 +73,9 @@
 				image= res.getString("image");
 				weight= res.getInt("weight");
 				inventory= res.getInt("inventory");
-				price=res.getDouble("price");
+				price =res.getDouble("price");
+				
+				
 				
 				
 				//No error, so log the user in
@@ -91,34 +97,11 @@
 				out.print("<button class=\"cancelbtn\">Not a member?</button>");
 				out.print("</form>");
 				
+				%>
 				
-		
-	}
-	catch(SQLException ex){	
-		String fullClassName = ex.getStackTrace()[2].getClassName();
-	    String className = fullClassName.substring(fullClassName.lastIndexOf(".") + 1);
-	    String methodName = ex.getStackTrace()[2].getMethodName();
-	    int lineNumber = ex.getStackTrace()[2].getLineNumber();	
-	    out.println(className + "." + methodName + "():" + lineNumber + "Message: " + ex);
-	}catch(Exception e){
-		out.print(e.toString());
-	}
-	finally {
-		if(con != null){
-			try{
-				con.close();
-			}catch(SQLException ex){	
-				out.println(ex);
-			}finally{
 				
-		}
-	}
-	
-}
-%>
-
-
-<body>
+				
+				<body>
 	<!-- Navigation menus -->
 	<!-- class="active" is used to change the colour of the tab of which page the user is on -->
 
@@ -155,23 +138,6 @@
 	<!--  END OF NAVIGATION MENU -->
 	
 	
-	<%
-				
-				/* String sql="SELECT color, size, style, price FROM Produt WHERE pID = productId";
-				PreparedStatement pstmt = con.prepareStatement(sql);
-				
-				ResultSet rst = pstmt.executeQuery();
-				String productColor = rst.getString("color");
-				String productStyle = rst.getString("size");
-				String productPrice = rst.getString("style");
-				Double productSize = rst.getDouble("price"); */
-				
-	
-	
-	%>
-	
-	
-
 	<table id="productPageTable" style="width: 100%">
 		<colgroup>
 			<col style="width: 20%" />
@@ -195,22 +161,22 @@
 
 		<tr>
 			<td align="center" style="text-decoration: none"><a href="listprod.jsp?productName=turtle+neck">Turtle Neck</a></td>
-			<td align="center">[image here]</td>
-			<td align="center">product name here[placeholder]<br>
+			<td align="center"><img src=<%=img%>></td>
+			<td align="center"><%=style%><br>
 			<p>Web ID: <%=productID%></p></td>
 		</tr>
 
 		<tr>
 			<td align="center"><a href="listprod.jsp?productName=t-shirt">T-Shirt</a></td>
 			<td></td>
-			<td align="center"><b style="color: orange"><strong>CA$ [productprice]</strong></b></td>
+			<td align="center"><b style="color: orange"><strong>CA$ <%=price %></strong></b></td>
 		</tr>
 		<tr>
 			<td align="center"><a href="listprod.jsp?productName=jacket">Jacket</a>
 			<td></td>
 
-			<td align="center"><br><b>Availability:</b> [inventory]<br> <b>Color:</b>
-				[color]<br> <b>Size:</b> [size]</td>
+			<td align="center"><br><b>Availability: </b> <%=inventory %><br> <b>Color:</b>
+				<%= color%><br> <b>Size:</b> <%=size %></td>
 
 
 			</td>
@@ -223,8 +189,32 @@
 
 		<!--  END OF CONTENT -->
 	</table>
+	<% 
+				
+		
+	}
+	catch(SQLException ex){	
+		String fullClassName = ex.getStackTrace()[2].getClassName();
+	    String className = fullClassName.substring(fullClassName.lastIndexOf(".") + 1);
+	    String methodName = ex.getStackTrace()[2].getMethodName();
+	    int lineNumber = ex.getStackTrace()[2].getLineNumber();	
+	    out.println(className + "." + methodName + "():" + lineNumber + "Message: " + ex);
+	}catch(Exception e){
+		out.print(e.toString());
+	}
+	finally {
+		if(con != null){
+			try{
+				con.close();
+			}catch(SQLException ex){	
+				out.println(ex);
+			}
+	}
+	
+}
+	
+%>
 
-<% %>
 
 
 </body>

@@ -40,15 +40,15 @@
 	
 	con = DriverManager.getConnection(url, uid, pw);
 	ResultSet res = null ;
-	String color,material, brand, size ,sql,style,image = "";
+	String color,material, brand, size ,sql,sqlUser,style,image = "";
 	int weight ,inventory=0;
 	double price = 0.0;
 	String img = "images/product" + productID + ".jpg";
-	
+	PreparedStatement pstmtUser;
 
  	
 	
-	
+
 	
 	try{
 		// Make database connection
@@ -76,6 +76,39 @@
 				price =res.getDouble("price");
 				
 				
+
+				sql = "SELECT * FROM Review WHERE pID= ?" ; // gets the review 
+
+				pstmt = con.prepareStatement(sql);			
+				
+				pstmt.setString(1, productID);
+				res =pstmt.executeQuery();
+				
+				while (res.next();){
+				sqlUser = "SELECT customerUserName FROM Customer WHERE customerID=" +res.getInt("customerID");//these get the username for the review from the Customer table
+				pstmtUser = con.prepareStatement(sql);			//
+				pstmtUser.setString(1, productID);//
+				ResultSet resUser =pstmt.executeQuery();//
+				
+				resUser.next();
+				String uName = resUser.getString(customerUserName);  // Use this User name for review
+				String theComment = res.getString(Comment); // the text inside a review
+				int stars = res.getInt(Stars);  // the number of stars a product got
+				
+						
+				java.util.Date date = new java.util.Date(); // gets back dateAndTime which tell when review was added 
+	            date = res.getTime("dateAndTime");
+	            String dateAndTime = date.toString();		
+					
+					//-------------------- please add your review code here so that it runs a few times to generate output for all review in review table taht are associated to one product 
+					
+					
+					
+					//-----------------
+				}
+				
+
+
 				
 				
 				//No error, so log the user in
@@ -214,6 +247,7 @@
 }
 	
 %>
+
 
 
 

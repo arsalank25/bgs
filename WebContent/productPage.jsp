@@ -151,6 +151,24 @@
 
 	<br>
 	<!--  END OF NAVIGATION MENU -->
+	
+	
+	<%
+				
+				/* String sql="SELECT color, size, style, price FROM Produt WHERE pID = productId";
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				
+				ResultSet rst = pstmt.executeQuery();
+				String productColor = rst.getString("color");
+				String productStyle = rst.getString("size");
+				String productPrice = rst.getString("style");
+				Double productSize = rst.getDouble("price"); */
+				
+	
+	
+	%>
+	
+	
 
 	<table id="productPageTable" style="width: 100%">
 		<colgroup>
@@ -177,13 +195,13 @@
 			<td align="center" style="text-decoration: none"><a href="listprod.jsp?productName=turtle+neck">Turtle Neck</a></td>
 			<td align="center">[image here]</td>
 			<td align="center">product name here[placeholder]<br>
-			<p>Web ID: [pID]</p></td>
+			<p>Web ID: <%=productID%></p></td>
 		</tr>
 
 		<tr>
 			<td align="center"><a href="listprod.jsp?productName=t-shirt">T-Shirt</a></td>
 			<td></td>
-			<td align="center"><b style="color: orange"><strong>CA$[price]</strong></b></td>
+			<td align="center"><b style="color: orange"><strong>CA$ [productprice]</strong></b></td>
 		</tr>
 		<tr>
 			<td align="center"><a href="listprod.jsp?productName=jacket">Jacket</a>
@@ -204,7 +222,7 @@
 		<!--  END OF CONTENT -->
 	</table>
 
-
+<% %>
 
 
 </body>

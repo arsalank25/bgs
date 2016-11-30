@@ -48,7 +48,7 @@
 
  	
 	
-	
+
 	
 	try{
 		// Make database connection
@@ -76,6 +76,7 @@
 				price =res.getDouble("price");
 				
 				
+
 				sql = "SELECT * FROM Review WHERE pID= ?" ; // gets the review 
 
 				pstmt = con.prepareStatement(sql);			
@@ -106,6 +107,8 @@
 					//-----------------
 				}
 				
+
+
 				
 				
 				//No error, so log the user in
@@ -246,11 +249,6 @@
 %>
 
 
-
-	
-	
-
-	
 
 
 <% %>

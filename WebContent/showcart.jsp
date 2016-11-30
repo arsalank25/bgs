@@ -60,11 +60,11 @@ String newqty = request.getParameter("newqty");
 // check if shopping cart is empty
 if (productList == null)
 {	
-	out.println("<H1>Your shopping cart is empty!</H1>");
-	productList = new HashMap();
+	out.println("<H1>Your shopping cart is empty!</H1>");	
 }
 else
-{
+{	
+	
 	NumberFormat currFormat = NumberFormat.getCurrencyInstance();
 	
 	// if id not null, then user is trying to remove that item from the shopping cart
@@ -138,8 +138,19 @@ else
 session.setAttribute("productList", productList);
 // give the customer the option to add more items to their shopping cart
 
-if(userSession != null){
+//If the cart is empty get rid of the product session
+if(productList != null){
+	if(productList.size()<1){
+		session.removeAttribute("productList");
+		response.sendRedirect("showcart.jsp");
+	}
+}
+
+if(userSession != null && productList != null){
 	out.print("<h2><a href=\"saveCart.jsp\">Save Cart</a></h2>");
+	
+}else if (productList == null){
+	
 }else{
 	out.print("<h2><a href=\"login.jsp\">Please create account to save cart</a></h2>");
 }

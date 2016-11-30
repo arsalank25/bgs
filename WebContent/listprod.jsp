@@ -2,6 +2,8 @@
 <%@ page import="java.sql.*"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
 <%@ page import="javax.imageio.*"%>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="java.util.ArrayList" %>
 
 <!DOCTYPE html>
 <html>
@@ -14,27 +16,48 @@
 <body>
 	<!-- Navigation menus -->
 	<!-- class="active" is used to change the colour of the tab of which page the user is on -->
-	<ul>		
-		<li style="float:left"><img src="images/BGSLogo.jpg" style="width:50px;height:50px;"></li>
-		<li style="float: right"><a href="login.jsp">Account <i class="fa fa-user-circle" aria-hidden="true"></i></a></li>
-		<li style="float: right"><a href="#about">WishList <i class="fa fa-heart" aria-hidden="true"></i></a></li>		
-		<li style="float: right"><a href="showcart.jsp">Cart <i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
+	<ul>
+		<li style="float: left"><img src="images/BGSLogo.jpg"
+			style="width: 50px; height: 50px;"></li>
+		<li class="dropdown" style="float: right"><a class="dropbtn"
+			href="login.jsp">Account <i class="fa fa-user-circle"
+				aria-hidden="true"></i></a>
+			<div class="dropdown-content">
+				<a href="logout.jsp">Logout</a>
+			</div></li>
+		<li style="float: right"><a href="#about">WishList <i
+				class="fa fa-heart" aria-hidden="true"></i></a></li>
+		<%		
+		HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
 		
+		int cartQTY = 0;
+		String color = "black";
+		if (productList != null)
+		{			
+			int size = productList.size();
+			color = size>0 ? "orange" : "black";
+		  	cartQTY = size;
+		}
+		
+		out.print("<li style=\"float: right\"><a href=\"showcart.jsp\">Cart ("+cartQTY+") <i style=\"color:"+color+";\" class=\"fa fa-shopping-cart\" aria-hidden=\"true\"></i></a></li>");
+		%>
+
 		<li><a href="shop.html">Home</a></li>
-		<li class="dropdown"><a class="active" href="listprod.jsp" class="dropbtn">Shop</a>
+		<li class="dropdown"><a href="listprod.jsp" class="dropbtn">Shop</a>
 			<div class="dropdown-content">
 				<a href="TurtleNeck.jsp">Turtle Neck</a> <a href="T-Shirt.jsp">T-Shirt</a>
 			</div></li>
-		<li><a href="contact.jsp">Contact</a></li>		
+		<li><a href="contact.jsp">Contact</a></li>
 		<li style="float: left";>
-		<div style="margin-left:auto;margin-right:auto;width: 50%;">		
-		<form align="center" method="get" action="listprod.jsp">
-			<input type="text" name="productName" size="50" placeholder="Search.. Example: Red XL Wool">			
-			<input type="submit" value="Submit">
-			<input type="submit" value="Clear Searches">
-		</form>
-		</div>
-	</li>
+			<div style="margin-left: auto; margin-right: auto; width: 50%;">
+				<form align="center" method="get" action="listprod.jsp">
+					<input type="text" name="productName" size="50"
+						placeholder="Search.. Example: Red XL Wool"> <input
+						type="submit" value="Submit"> <input type="submit"
+						value="Clear Searches">
+				</form>
+			</div>
+		</li>
 	</ul>
 	<br>
 

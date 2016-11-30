@@ -26,11 +26,11 @@
 </script>
 <title>Product Page</title>
 </head>
+<body>
 
-
-
-<%	int productID = Integer.parseInt(request.getParameter("productID"));
+<%	String productID = request.getParameter("productID");
 	System.out.println("ProductID: "+productID);
+	
 	
 	Connection con = null;
 	String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_group11";
@@ -42,32 +42,38 @@
 	String color,material, brand, size ,sql,style,image = "";
 	int weight ,inventory=0;
 	double price = 0.0;
+	String img = "images/product" + productID + ".jpg";
 	
+	PreparedStatement pstmt;
+	//customerID auto increments
+	sql = "SELECT * FROM Product WHERE pID=?" ;//by defult the access level will be zero 
+	
+	pstmt = con.prepareStatement(sql);			
+	
+	pstmt.setString(1, productID);
+	
+	res = pstmt.executeQuery();
+	
+	while(res.next()){
+	color = res.getString("color");
+	material = res.getString("material");
+	brand= res.getString("brand");
+	size= res.getString("size");
+	style= res.getString("style");
+	image= res.getString("image");
+	//weight= res.getInt("image");
+	inventory= res.getInt("inventory");
+	price= res.getDouble("price");
+	
+	}
 	
 	try{
 		// Make database connection
 				Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			 	con = DriverManager.getConnection(url,uid,pw);				
-				PreparedStatement pstmt;				
+								
 				
-				//customerID auto increments
-				sql = "SELECT * FROM Product WHERE pID=?" ;//by defult the access level will be zero 
-				
-				pstmt = con.prepareStatement(sql);			
-				
-				pstmt.setInt(1, productID);
-				
-				res =pstmt.executeQuery(sql);
-				
-				color = res.getString("color");
-				material = res.getString("material");
-				brand= res.getString("brand");
-				size= res.getString("size");
-				style= res.getString("style");
-				image= res.getString("image");
-				weight= res.getInt("image");
-				inventory= res.getInt("inventory");
-				price=res.getDouble("price");
+			
 				
 				
 				//No error, so log the user in
@@ -88,6 +94,7 @@
 				out.print("<form name=\"signupForm\" action=\"SignUp.html\">");
 				out.print("<button class=\"cancelbtn\">Not a member?</button>");
 				out.print("</form>");
+				
 				
 				
 		
@@ -116,7 +123,7 @@
 %>
 
 
-<body>
+
 	<!-- Navigation menus -->
 	<!-- class="active" is used to change the colour of the tab of which page the user is on -->
 
@@ -181,7 +188,7 @@
 		<!--  TITLES -->
 		<tr>
 			<th style="font-family: Abel;">Categories</th>
-			<th>image[placeholder]</th>
+			<th></th>
 			<th>Details [placeholder]
 		</tr>
 		<!-- END OF TITLES -->
@@ -193,15 +200,15 @@
 
 		<tr>
 			<td align="center" style="text-decoration: none"><a href="listprod.jsp?productName=turtle+neck">Turtle Neck</a></td>
-			<td align="center">[image here]</td>
-			<td align="center">product name here[placeholder]<br>
+			<td align="center"><img src=<%=img%>></td>
+			<td align="center">style<br>
 			<p>Web ID: <%=productID%></p></td>
 		</tr>
 
 		<tr>
 			<td align="center"><a href="listprod.jsp?productName=t-shirt">T-Shirt</a></td>
 			<td></td>
-			<td align="center"><b style="color: orange"><strong>CA$ [productprice]</strong></b></td>
+			<td align="center"><b style="color: orange"><strong>CA$ <%=price %></strong></b></td>
 		</tr>
 
 
@@ -209,8 +216,8 @@
 			<td align="center"><a href="listprod.jsp?productName=jacket">Jacket</a>
 			<td></td>
 
-			<td align="center"><br><b>Availability:</b> [inventory]<br> <b>Color:</b>
-				[color]<br> <b>Size:</b> [size]</td>
+			<td align="center"><br><b>Availability: </b><%=inventory %><br> <b>Color: </b>
+				color<br> <b>Size:</b> size</td>
 
 
 			</td>
@@ -224,7 +231,7 @@
 		<!--  END OF CONTENT -->
 	</table>
 
-<% %>
+
 
 
 </body>

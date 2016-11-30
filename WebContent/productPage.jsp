@@ -51,8 +51,7 @@
 			 	con = DriverManager.getConnection(url,uid,pw);				
 				PreparedStatement pstmt;				
 				
-				//customerID auto increments
-				sql = "SELECT * FROM Product WHERE pID=?" ;//by defult the access level will be zero 
+				sql = "SELECT * FROM Product WHERE pID= ?" ; // gets the product which was passed in so that the content can be retrieved
 				
 				pstmt = con.prepareStatement(sql);			
 				

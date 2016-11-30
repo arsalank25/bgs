@@ -148,11 +148,10 @@
 			out.print("<input type=\"password\" placeholder=\"Enter Password\" name=\"psw\" required>");
 			out.print("<button type=\"submit\">Login</button>");
 			out.print("</div>");
-			out.print("</form>");			
-			out.print("<form name=\"signupForm\" action=\"SignUp.html\">");			
 			out.print("</form>");
-			
-			out.print("<button id=\"member\" class=\"cancelbtn\">Not a member?</button>");
+			out.print("<form name=\"signupForm\" action=\"SignUp.html\">");
+			out.print("<div id=\"member\"><button  class=\"cancelbtn\">Not a member?</button></div>");
+			out.print("</form>");
 
 			//Already Logged in
 		} else {

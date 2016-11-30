@@ -140,7 +140,7 @@
 							productStyle = rst.getString("style");
 							productSize = rst.getString("size");
 
-							out.print("<th><td><img src=" + img + " style=\"width: 150px; height: 100px;\">");
+							out.print("<th><td><a href=\"productPage.jsp?productID="+productId+"\"><img src=" + img + " style=\"width: 150px; height: 100px;\"></a>");
 
 							out.print("<p><b>" + productStyle + "</b>");
 							out.print("<br>Available colour: " + productColour);

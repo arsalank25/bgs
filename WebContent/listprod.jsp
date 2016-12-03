@@ -19,7 +19,7 @@
 	<ul>		
 		<li style="float:left"><img src="images/BGSLogo.jpg" style="width:50px;height:50px;"></li>
 		<li style="float: right"><a href="login.jsp">Account <i class="fa fa-user-circle" aria-hidden="true"></i></a></li>
-		<li style="float: right"><a href="#about">WishList <i class="fa fa-heart" aria-hidden="true"></i></a></li>
+		<li style="float: right"><a href="wishList.jsp">WishList <i class="fa fa-heart" aria-hidden="true"></i></a></li>
 		
 		<%		
 		HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
@@ -165,10 +165,8 @@
 							out.print("<br>" + currFormat.format(price));
 							out.print("</p><p>");
 							out.print("<a href=\"addcart.jsp?id=" + productId + "&name=" + productStyle);
-							out.print("&price=" + price + "\"> Add to Cart </a></p>");
-							
-							out.print("<p><a href=\"wishList.jsp?id=" + productId + "&name=" + productStyle);
-							out.print("&price=" + price + "\"> Add to Wish list </a></p></td></th>");
+							out.print("&price=" + price + "\"> Add to Cart </a></p>");							
+							out.print("<p><a href=\"wishList.jsp?id=" + productId+"> Add to Wish list </a></p></td></th>");
 						}
 					}
 					out.println("</table>");

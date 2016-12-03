@@ -20,7 +20,7 @@
 <ul>
 <li style="float:left"><img src="images/BGSLogo.jpg" style="width:50px;height:50px;"></li>
 <li style="float:right"><a  href="login.jsp">Account</a></li>
-<li style="float:right"><a  href="#about">WishList</a></li>
+<li style="float:right"><a  href="wishList.jsp">WishList</a></li>
 <li style="float:right"><a href="checkout.jsp">Check Out</a></li>
 <li style="float:right"><a class="active" href="showcart.jsp">Cart</a></li>
 

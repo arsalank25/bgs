@@ -45,7 +45,7 @@
 			<div class="dropdown-content">
 				<a href="logout.jsp">Logout</a>
 			</div></li>
-		<li style="float: right"><a href="#about">WishList <i
+		<li style="float: right"><a href="wishList.jsp">WishList <i
 				class="fa fa-heart" aria-hidden="true"></i></a></li>
 		<li style="float: right"><a href="showcart.jsp">Cart <i
 				class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>

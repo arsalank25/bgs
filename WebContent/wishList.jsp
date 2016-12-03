@@ -135,12 +135,25 @@
 						out.print("</p><p>");
 						out.print("<a href=\"addcart.jsp?id=" + productId + "&name=" + productStyle);
 						out.print("&price=" + price + "\"> Add to Cart </a></p>");
-						out.print("<p><a href=\"wishList.jsp?id=" + productId
-								+ "> Add to Wish list </a></p></td></th>");
+						
+						out.print("<p><a href=\"wishList.jsp?id=" + productId+"&delete=true\">");
+						out.print("Remove From Wishlist</a></p></td></th>");
 					}
 				}
 				con.close();
 				out.println("</table>");
+				
+				//Remove Product				
+				if (request.getParameter("id") != null && request.getParameter("delete") != null) {
+					int deleteProdID = Integer.parseInt(request.getParameter("id"));
+					sql = "DELETE FROM Wishlist WHERE pID = ? AND customerID = ?";
+					con = DriverManager.getConnection(url, uid, pw);
+					prep = con.prepareStatement(sql);
+					prep.setInt(1, deleteProdID);	
+					prep.setInt(2, customerId);
+					prep.executeQuery();	
+					response.sendRedirect("wishList.jsp");
+				}
 
 				// Add product //
 
@@ -162,10 +175,10 @@
 						response.sendRedirect("wishList.jsp");
 						
 					}
-					
-
 				}
 
+				
+				
 			} catch (SQLException ex) {
 				String fullClassName = ex.getStackTrace()[2].getClassName();
 				String className = fullClassName.substring(fullClassName.lastIndexOf(".") + 1);

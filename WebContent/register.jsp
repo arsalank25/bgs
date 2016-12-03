@@ -101,6 +101,7 @@ else if (province.equals(null) || province.equals("") || province.length() != 2)
 	%>
 	<h2> out.println("Invalid User province. Go back to the previous page and try again."); </h2>  
 	<%
+	break;
 }
 
 
@@ -120,6 +121,7 @@ else if (province.equals(null) || province.equals("") || province.length() != 2)
 					%>
 					<h2> out.println("The user name or Email already exists, go back and try agian"); </h2>  
 					<%
+					
 				}
 				
 				

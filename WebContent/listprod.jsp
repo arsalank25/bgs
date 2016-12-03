@@ -35,12 +35,11 @@
 		
 		out.print("<li style=\"float: right\"><a href=\"showcart.jsp\">Cart ("+cartQTY+") <i style=\"color:"+color+";\" class=\"fa fa-shopping-cart\" aria-hidden=\"true\"></i></a></li>");
 		%>
-		<li><a href="shop.html">Home</a></li>
-		<li class="dropdown"><a class="active" href="listprod.jsp" class="dropbtn">Shop</a>
-			<div class="dropdown-content">
-				<a href="TurtleNeck.jsp">Turtle Neck</a> <a href="T-Shirt.jsp">T-Shirt</a>
-			</div></li>
-		<li><a href="contact.jsp">Contact</a></li>		
+		
+ <li><a class="active" href="shop.html">Home</a></li>
+ <li><a href="listprod.jsp">Shop</a></li>
+ <li><a href="contact.jsp">Contact</a></li>
+			
 		<li style="float: left";>
 		<div style="margin-left:auto;margin-right:auto;width: 50%;">		
 		<form align="center" method="get" action="listprod.jsp">
@@ -111,7 +110,8 @@
 					}
 				}				
 				
-				//Connection Information		
+				//Connection Information	
+				Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 				String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_group11";
 				String uid = "group11";
 				String pw = "group11";

@@ -211,3 +211,11 @@ a:link {
     font-family: Abel;
 }
 
+
+<!-- IDs -->
+
+#ptable {
+	display: block;
+	margin: 0 auto;
+	width: auto;
+}

@@ -90,7 +90,7 @@
 				String pw = "group11";
 				Connection con = null;
 
-				String sql = "SELECT customerID, firstName, lastName, email,province FROM Customer WHERE password = ? AND customerUserName = ?";
+				String sql = "SELECT customerID, firstName, lastName, email, province, accessLevel FROM Customer WHERE password = ? AND customerUserName = ?";
 
 				try {
 
@@ -110,6 +110,8 @@
 						userSession.put("LastName", rs.getString("LastName"));
 						userSession.put("email", rs.getString("email"));
 						userSession.put("province", rs.getString("province"));
+						System.out.print("Logged in access level is: "+rs.getString("accessLevel")+"\n");
+						userSession.put("isAdmin",String.valueOf(rs.getInt("accessLevel")));
 						
 						//Update Session Variables					
 						session.setAttribute("userSession", userSession);

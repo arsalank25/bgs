@@ -108,12 +108,27 @@ else if (province.equals(null) || province.equals("") || province.length() != 2)
 		// Make database connection
 				Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			 	con = DriverManager.getConnection(url,uid,pw);				
-				PreparedStatement pstmt;				
+				PreparedStatement pstmt;	
+				
+				
+				sql = " SELECT customerUserName,email FROM Customer WHERE customerUserName = ? OR email = ? ";
+				pstmt  = con.prepareStatement(sql);
+				pstmt.setString(1, customerUserName);
+				pstmt.setString(2, email);
+				resCustName = pstmt.executeQuery();
+				if(resCustName.next()){
+					%>
+					<h2> out.println("The user name or Email already exists, go back and try agian"); </h2>  
+					<%
+				}
+				
+				
 				
 				//customerID auto increments
 				sql = "INSERT INTO Customer(customerUserName,password,firstName,lastName,email,houseNo,street,city,province,postalCode, accessLevel) VALUES (?,?,?,?,?,?,?,?,?,?,0)";//by defult the access level will be zero 
 				
-				pstmt = con.prepareStatement(sql);			
+				pstmt = con.prepareStatement(sql);	
+				
 				
 				pstmt.setString(1, customerUserName);
 				pstmt.setString(2, password);

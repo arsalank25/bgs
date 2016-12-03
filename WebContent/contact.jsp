@@ -20,12 +20,11 @@
 		<li style="float: right"><a href="#about">WishList <i class="fa fa-heart" aria-hidden="true"></i></a></li>		
 		<li style="float: right"><a href="showcart.jsp">Cart <i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
 		
-		<li><a href="shop.html">Home</a></li>
-		<li class="dropdown"><a href="listprod.jsp" class="dropbtn">Shop</a>
-			<div class="dropdown-content">
-				<a href="TurtleNeck.jsp">Turtle Neck</a> <a href="T-Shirt.jsp">T-Shirt</a>
-			</div></li>
-		<li><a class="active" href="contact.jsp">Contact</a></li>		
+	
+		
+ <li><a class="active" href="shop.html">Home</a></li>
+ <li><a href="listprod.jsp">Shop</a></li>
+ <li><a href="contact.jsp">Contact</a></li>		
 		<li style="float: left";>
 		<div style="margin-left:auto;margin-right:auto;width: 50%;">		
 		<form align="center" method="get" action="listprod.jsp">

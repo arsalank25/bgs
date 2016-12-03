@@ -63,6 +63,11 @@ String pw = "group11";
 Connection con = null; 
 ResultSet res, res2,  keys, resCustName = null;
 String sql, sql2, insertProduct, update, insert, getCustName = "";
+EmailValidator validator = EmailValidator.getInstance();
+String regex = "^(?!.*[DFIOQU])[A-VXY][0-9][A-Z] ?[0-9][A-Z][0-9]$";//for postal code validation 
+Pattern pattern = Pattern.compile(regex);
+Matcher matcher = pattern.matcher(postalCode);
+
 
 
 	try{
@@ -77,10 +82,11 @@ String sql, sql2, insertProduct, update, insert, getCustName = "";
 				pstmt.setString(2, email);
 				resCustName = pstmt.executeQuery();
 				if(resCustName.next()){
+
 					
 					out.println("<h2 align=\"center\">The user name or Email already exists, go back and try again</h2>");
 					return;
-					
+
 				}
 				
 				//customerID auto increments

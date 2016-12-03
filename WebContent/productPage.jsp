@@ -34,12 +34,11 @@
 		<li style="float: right"><a href="showcart.jsp">Cart <i
 				class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
 
-		<li><a href="shop.html">Home</a></li>
-		<li class="dropdown"><a href="listprod.jsp" class="dropbtn">Shop</a>
-			<div class="dropdown-content">
-				<a href="TurtleNeck.jsp">Turtle Neck</a> <a href="T-Shirt.jsp">T-Shirt</a>
-			</div></li>
-		<li><a href="contact.jsp">Contact</a></li>
+		
+ <li><a class="active" href="shop.html">Home</a></li>
+ <li><a href="listprod.jsp">Shop</a></li>
+ <li><a href="contact.jsp">Contact</a></li>
+		
 		<li style="float: left";>
 			<div style="margin-left: auto; margin-right: auto; width: 50%;">
 				<form align="center" method="get" action="listprod.jsp">
@@ -112,12 +111,15 @@
 
 			//Print out product information
 			out.print("<br><br><div style=\"background-color: grey; \"><h2>" + style + "</h2></div>");
+			
 			out.print("<table style=\"margin: 0 auto;\" ><tr><td><img src=" + img
 					+ " style=\"width: 200px; height: 200px;\"></td>");
 			out.print("<td align=\"Left\" style=\"vertical-align: top;\"><b>Availability: </b>" + inventory
-					+ "<br> <b>Color:</b>" + color + "<br> <b>Size:</b>" + size + "<br>");
-			out.print("<a href=\"addcart.jsp?id=" + productID + "&name=" + style);
-			out.print("&price=" + price + "\"> Add to Cart </a></p></td></tr></table>");
+					+ "<br> <b>Color:</b>" + color + "<br> <b>Size:</b>" + size);
+			out.print("<br><a href=\"addcart.jsp?id=" + productID + "&name=" + style);
+			out.print("&price=" + price + "\"> Add to Cart </a></p></td></th></table>");
+			
+		
 
 			//print list of existing reviews
 			sql = "SELECT C.customerId,customerUserName,R.comment,R.stars FROM Review R,Customer C WHERE R.customerID = C.customerId AND pid = ?";

@@ -62,46 +62,6 @@ String pw = "group11";
 Connection con = null; 
 ResultSet res, res2,  keys, resCustName = null;
 String sql, sql2, insertProduct, update, insert, getCustName = "";
-EmailValidator validator = EmailValidator.getInstance();
-String regex = "^(?!.*[DFIOQU])[A-VXY][0-9][A-Z] ?[0-9][A-Z][0-9]$";//for postal code validation 
-Pattern pattern = Pattern.compile(regex);
-Matcher matcher = pattern.matcher(postalCode);
-
-
-if(firstName.equals(null) || firstName.equals("")){    // Determine if invalid customer idname was entered
-	%>
-	<h2> out.println("Invalid First Name. Go back to the previous page and try again."); </h2> 
-	<% 
-}else if (customerUserName.equals(null) || customerUserName.equals("")){ // Determine if there are products in the shopping cart
-	%>
-	<h2> out.println("Invalid User Name. Go back to the previous page and try again."); </h2>  
-	<%
-}
-else if (password.equals(null) || password.equals("")){ // Determine if there are products in the shopping cart
-	%>
-	<h2> out.println("Invalid User password. Go back to the previous page and try again."); </h2>  
-	<%
-}
-
-
-else if (!validator.isValid(email)){ // Determine if there are products in the shopping cart
-	%>
-	<h2> out.println("Invalid email. Go back to the previous page and try again."); </h2>  
-	<%
-}else if(houseNo.equals(null) || houseNo.equals("")){    // Determine if invalid customer idname was entered
-	%>
-	<h2> out.println("Invalid houseNo. Go back to the previous page and try again."); </h2> 
-	<% 
-}else if (postalCode.equals(null) || postalCode.equals("")){ // Determine if there are products in the shopping cart
-	%>
-	<h2> out.println("Invalid postalCode. Go back to the previous page and try again."); </h2>  
-	<%
-}
-else if (province.equals(null) || province.equals("") || province.length() != 2){ // Determine if there are products in the shopping cart
-	%>
-	<h2> out.println("Invalid User province. Go back to the previous page and try again."); </h2>  
-	<%
-}
 
 
 	try{

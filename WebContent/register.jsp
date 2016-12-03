@@ -32,7 +32,8 @@
 			alert("Please enter your password");
 			return false;
 		}
-	}
+	}	
+	
 </script>
 <title>Log In</title>
 </head>
@@ -68,8 +69,7 @@ String sql, sql2, insertProduct, update, insert, getCustName = "";
 		// Make database connection
 				Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			 	con = DriverManager.getConnection(url,uid,pw);				
-				PreparedStatement pstmt;	
-				
+				PreparedStatement pstmt;					
 				
 				sql = " SELECT customerUserName,email FROM Customer WHERE customerUserName = ? OR email = ? ";
 				pstmt  = con.prepareStatement(sql);
@@ -77,18 +77,16 @@ String sql, sql2, insertProduct, update, insert, getCustName = "";
 				pstmt.setString(2, email);
 				resCustName = pstmt.executeQuery();
 				if(resCustName.next()){
-					%>
-					<h2> out.println("The user name or Email already exists, go back and try agian"); </h2>  
-					<%
+					
+					out.println("<h2 align=\"center\">The user name or Email already exists, go back and try again</h2>");
+					return;
+					
 				}
-				
-				
 				
 				//customerID auto increments
 				sql = "INSERT INTO Customer(customerUserName,password,firstName,lastName,email,houseNo,street,city,province,postalCode, accessLevel) VALUES (?,?,?,?,?,?,?,?,?,?,0)";//by defult the access level will be zero 
 				
-				pstmt = con.prepareStatement(sql);	
-				
+				pstmt = con.prepareStatement(sql);					
 				
 				pstmt.setString(1, customerUserName);
 				pstmt.setString(2, password);
@@ -106,7 +104,7 @@ String sql, sql2, insertProduct, update, insert, getCustName = "";
 				out.print("<h1>Account Created, please login!<h1>");
 				//Login Form Html
 				out.print(
-						"<form name=\"loginForm\" method=\"POST\" action=\"login.jsp\" onsubmit=\"return validateForm()\">");
+						"<form name=\"loginForm\" method=\"POST\" action=\"login.jsp? onsubmit=\"return validateForm()\">");
 				out.print("<div class=\"imgcontainer\">");
 				out.print("</div>");
 				out.print("<div class=\"container\">");
@@ -120,8 +118,6 @@ String sql, sql2, insertProduct, update, insert, getCustName = "";
 				out.print("<form name=\"signupForm\" action=\"SignUp.html\">");
 				out.print("<button class=\"cancelbtn\">Not a member?</button>");
 				out.print("</form>");
-				
-				
 		
 	}
 	catch(SQLException ex){	

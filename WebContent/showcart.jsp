@@ -14,7 +14,6 @@
 </head>
 <body>
 
-
 <ul>
 <li style="float:left"><img src="images/BGSLogo.jpg" style="width:50px;height:50px;"></li>
 		<li style="float: right"><a href="login.jsp">Account <i class="fa fa-user-circle" aria-hidden="true"></i></a></li>

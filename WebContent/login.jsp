@@ -4,6 +4,8 @@
 <%@ page import="java.util.Iterator"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.Map"%>
+<%@ page import="java.net.*"%>
+
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
 <!DOCTYPE html>
 <html>
@@ -69,9 +71,18 @@
 	<br>
 
 	<%
+	
+		//Get URL of reffering page
+		URL refUrl = new URL(request.getHeader("referer")); 		
+		System.out.println("\nLogin reffered from "+ refUrl.getPath());
+		
+		//Get the reffering URL from the POST (do this because login reffers back to itself during login)	
+		String fromURL = request.getParameter("from");
+		
 		//Get info from form
 		String customerUserName = request.getParameter("uname");
-		String password = request.getParameter("psw");		
+		String password = request.getParameter("psw");
+		
 
 		//Check whether we are already logged in
 		@SuppressWarnings({ "unchecked" })
@@ -110,14 +121,20 @@
 						userSession.put("LastName", rs.getString("LastName"));
 						userSession.put("email", rs.getString("email"));
 						userSession.put("province", rs.getString("province"));
-						System.out.print("Logged in access level is: "+rs.getString("accessLevel")+"\n");
+						System.out.print("\nLogged in access level is: "+rs.getString("accessLevel"));
 						userSession.put("isAdmin",String.valueOf(rs.getInt("accessLevel")));
 						
 						//Update Session Variables					
 						session.setAttribute("userSession", userSession);
 						
 						//Load users existing cart
-						response.sendRedirect("loadCart.jsp");						
+						if(refUrl.getPath().contains("register")){
+							response.sendRedirect("shop.html");
+						}
+						else if(fromURL!=null){
+							response.sendRedirect(fromURL);
+						}
+												
 						
 					}else{
 						
@@ -140,7 +157,7 @@
 
 			//Login Form Html
 			out.print(
-					"<form name=\"loginForm\" method=\"POST\" action=\"login.jsp\" onsubmit=\"return validateForm()\">");
+					"<form name=\"loginForm\" method=\"POST\" action=\"login.jsp?from="+refUrl.toString()+"\" onsubmit=\"return validateForm()\">");
 			out.print("<div class=\"imgcontainer\">");
 			out.print("</div>");
 			out.print("<div class=\"container\">");

@@ -128,7 +128,7 @@
 						session.setAttribute("userSession", userSession);
 						
 						//Load users existing cart
-						if(refUrl.getPath().contains("register")){
+						if(refUrl.getPath().contains("register")||refUrl.getPath().contains("login")||refUrl.getPath().contains("logout")){
 							response.sendRedirect("shop.html");
 						}
 						else if(fromURL!=null){

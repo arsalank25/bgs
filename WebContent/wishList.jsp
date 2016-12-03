@@ -70,7 +70,7 @@
 		//Array list to check if product ID already exists in wishlist
 		ArrayList<Integer> prodList = new ArrayList<Integer>();	
 				
-		System.out.printf("\nUser is %s logged in", (userSession == null) ? "Not" : "");
+		//System.out.printf("\nUser is %s logged in", (userSession == null) ? "Not" : "");
 
 		if (userSession != null) {
 			int customerId = (int) Integer.parseInt(userSession.get("CustomerID"));
@@ -151,7 +151,8 @@
 					prep = con.prepareStatement(sql);
 					prep.setInt(1, deleteProdID);	
 					prep.setInt(2, customerId);
-					prep.executeQuery();	
+					prep.executeUpdate();	
+					System.out.print("\nProduct "+deleteProdID+" Deleted");
 					response.sendRedirect("wishList.jsp");
 				}
 
@@ -159,7 +160,7 @@
 
 				//Get product ID for adding if there is one. 
 
-				if (request.getParameter("id") != null) {					
+				if (request.getParameter("id") != null && request.getParameter("delete") == null) {					
 					int addProductId = Integer.parseInt(request.getParameter("id"));
 					System.out.print("\nParameter ID found: "+addProductId);
 
@@ -171,7 +172,7 @@
 						prep.setInt(1, customerId);
 						prep.setInt(2, addProductId);
 						prep.executeUpdate();	
-						System.out.print("Finished inserting product "+addProductId+" for customer "+customerId);
+						System.out.print("\nFinished inserting product "+addProductId+" for customer "+customerId);
 						response.sendRedirect("wishList.jsp");
 						
 					}

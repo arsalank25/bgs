@@ -165,7 +165,10 @@
 							out.print("<br>" + currFormat.format(price));
 							out.print("</p><p>");
 							out.print("<a href=\"addcart.jsp?id=" + productId + "&name=" + productStyle);
-							out.print("&price=" + price + "\"> Add to Cart </a></p></td></th>");
+							out.print("&price=" + price + "\"> Add to Cart </a></p>");
+							
+							out.print("<p><a href=\"wishList.jsp?id=" + productId + "&name=" + productStyle);
+							out.print("&price=" + price + "\"> Add to Wish list </a></p></td></th>");
 						}
 					}
 					out.println("</table>");

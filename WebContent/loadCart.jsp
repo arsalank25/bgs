@@ -7,6 +7,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
 
 <%
+	System.out.print("\nLoadCart.jsp Called");
 	HashMap<String, String> userSession = (HashMap<String, String>) session.getAttribute("userSession");
 
 	if (userSession != null) {
@@ -35,10 +36,11 @@
 			prep.setInt(1, customerId);
 
 			ResultSet rs = prep.executeQuery();
-			System.out.println("Getting Current cart to load for user..."+ customerId);
+			System.out.println("\nGetting Current cart to load for user..."+ customerId);
 			//If there is an active/current cart, then load it
 			if (rs.next()) {
 				cartID = rs.getInt("cartID");
+				System.out.println("\n Cart Id: " +cartID);
 				if (cartID > 0) {					
 					//Load cart
 					sql = "SELECT C.pID AS prodID,style,price,quantity FROM CartContains C,Product P WHERE C.PID = P.PID AND C.CID = ?";
@@ -54,9 +56,8 @@
 						String id    = String.valueOf(rs.getInt("prodID"));
 						String name  = rs.getString("style");				
 						String price = String.valueOf(rs.getDouble("price"));
-						int quantity = rs.getInt("quantity");
+						int quantity = rs.getInt("quantity");				
 						
-						System.out.println("Cart id: " +id);
 						
 						ArrayList<Object> product = new ArrayList<Object>();
 						product.add(id);
@@ -71,8 +72,19 @@
 				}
 			}
 			
-			//Redirect to cart
-			response.sendRedirect("showcart.jsp");	
+			//Get the reffering URL from the GET (do this because login reffers back to itself during login)	
+			String fromURL = request.getParameter("from");
+			
+			//Redirect to where we were before logging in
+			System.out.print("\nLoadcart > FromURL > "+fromURL);
+			if(fromURL.contains("register")||fromURL.contains("login")||fromURL.contains("logout")||fromURL.equals(null)){
+				System.out.print("\nRedirecting to shop.html");
+				response.sendRedirect("shop.html");
+			}
+			else if(fromURL!=null){
+				response.sendRedirect(fromURL);
+			}
+			
 			
 			
 			

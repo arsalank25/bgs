@@ -43,6 +43,10 @@
 // Add new product selected
 // Get product information CustomerUserName
 
+//Get the reffering URL from the POST (do this because login reffers back to itself during login)	
+String fromURL = request.getParameter("from");
+System.out.print("\nLogin > FromURL > "+fromURL);
+
 
 String customerUserName = request.getParameter("uname");
 String firstName = request.getParameter("fname");

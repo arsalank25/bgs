@@ -74,10 +74,11 @@
 	
 		//Get URL of reffering page
 		URL refUrl = new URL(request.getHeader("referer")); 		
-		System.out.println("\nLogin reffered from "+ refUrl.getPath());
+		System.out.println("\nLogin reffered from "+ refUrl.getPath());		
 		
 		//Get the reffering URL from the POST (do this because login reffers back to itself during login)	
 		String fromURL = request.getParameter("from");
+		System.out.print("\nLogin > FromURL > "+fromURL);
 		
 		//Get info from form
 		String customerUserName = request.getParameter("uname");
@@ -127,13 +128,8 @@
 						//Update Session Variables					
 						session.setAttribute("userSession", userSession);
 						
-						//Load users existing cart
-						if(refUrl.getPath().contains("register")||refUrl.getPath().contains("login")||refUrl.getPath().contains("logout")){
-							response.sendRedirect("shop.html");
-						}
-						else if(fromURL!=null){
-							response.sendRedirect(fromURL);
-						}
+						//Load users existing cart						
+						response.sendRedirect("loadCart.jsp?from="+fromURL);
 												
 						
 					}else{

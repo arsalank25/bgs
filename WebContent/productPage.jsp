@@ -64,7 +64,7 @@
 		int productID = Integer.parseInt(request.getParameter("productID"));
 		String reviewParam = request.getParameter("review");
 		String deleteParam = request.getParameter("delete");
-		System.out.println("ProductID: " + productID);
+		System.out.println("\nProductID: " + productID);
 
 		//Connection information
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -133,9 +133,9 @@
 			
 			int admin = 0;
 			if (userSession != null) {
-				System.out.print("Got session info");
+				System.out.print("\nGot session info");
 				if (userSession.get("isAdmin") != null) {	
-					System.out.print("Admin session info is not null");
+					System.out.print("\nAdmin session info is not null");
 					if ((Integer.parseInt(userSession.get("isAdmin"))) > 0) {
 						admin = 1;							
 				}
